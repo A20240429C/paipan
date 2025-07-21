@@ -1,0 +1,10 @@
+<svg t="1669951446761" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" p-id="2682" data-spm-anchor-id="a313x.7781069.0.i1"
+    width="100%" height="100%">
+    <symbol id="cxx" viewBox="0 0 1024 1024">
+        <path
+            d="M512 64C264.8 64 64 264.8 64 512s200.8 448 448 448 448-200.8 448-448S759.2 64 512 64z m238.4 641.6l-45.6 45.6L512 557.6 318.4 750.4l-45.6-45.6L467.2 512 273.6 318.4l45.6-45.6L512 467.2l193.6-193.6 45.6 45.6L557.6 512l192.8 193.6z"
+            p-id="2683" data-spm-anchor-id="a313x.7781069.0.i0" class="selected" fill="#ffffff">
+        </path>
+    </symbol>
+</svg>

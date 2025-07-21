@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题提升</title>
+    <link rel="stylesheet" href="../../root.css">
+</head>
+<link rel="stylesheet" href="./index.css">
+<style>
+
+</style>
+
+<body>
+    <div id="vuest">
+        <div class="a1">更多</div>
+        <div v-if="user_TouXiang.length>20" class="a7">
+            <div class="a12">
+                <div class="a4">
+                    账号资料
+                </div>
+                <div>
+                    <img @click="user_set_code=true" v-if="!user_set_code" class="a13" src="../../images/xiugai.png"
+                        alt="">
+
+                    <div v-else class="a17">
+                        <div class="a18" @click="user_set_code=false">
+                            取消
+                        </div>
+                        <div class="a14" @click="sava_info();user_set_code=false">
+                            保存
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div v-if="!user_set_code" class="a9">
+                <div class="a20">
+                    <div>
+                        {{vip_arr[user_vip]}}
+                    </div>
+                </div>
+                <div class="a21">
+                    <div class="A30">{{user_name}}</div>
+                    <img class="a10" :src="'https://fileliuren.oss-cn-hongkong.aliyuncs.com/'+user_TouXiang" alt="">
+                    <div class="A29">id:{{user_uuid}}</div>
+                </div>
+            </div>
+            <div v-else>
+                <div>
+                    <div class="a15">
+                        <div>
+                            使用QQ号获取QQ头像:
+                        </div>
+                        <input v-model="info_QQ" maxlength="11" placeholder="QQ号" class="a16" type="number" pattern=""
+                            name="" id="">
+                    </div>
+                    <div class="a15">
+                        <div>
+                            昵称:
+                        </div>
+                        <input v-model="info_name" maxlength="20" placeholder="新昵称" class="a16" pattern="" name=""
+                            id="">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="a7" v-if="user_vip==999">
+            <div class="a4">
+                生成卡密
+            </div>
+            <div class="B32">
+                <div>
+                    额度
+                </div>
+                <div>
+                    <input type="number" v-model="set_tokens_t">
+                </div>
+                <div class="B33" @click="add_tokens_kami()">
+                    生成
+                </div>
+            </div>
+            <div class="B34" v-if="tokens_t.length>2">
+                <div>
+                    已生成卡密
+                </div>
+                <input type="text" v-model="tokens_t">
+            </div>
+
+
+        </div>
+        <div class="a7" v-if="AI_tokens">
+            <div class="B31">
+                <div class="B30">
+                    <div class="a4">卡密</div>
+                    <input style="width:60%;" v-model="kami" type="text">
+                    <div v-if="fangdou" class="A28" @click="duihuankami()">兑换</div>
+                    <div v-if="!fangdou" class="A28">兑换中</div>
+                </div>
+
+            </div>
+            <div class="A35">
+                <div v-if="APP_ver" @click="to_kfz" class="A36">
+                    点击联系开发者获得卡密
+                </div>
+                <a v-else target="_blank"
+                    href="mqqwpa://im/chat?chat_type=wpa&uin=825941952&version=1&src_type=web&web_src=lvlingseeds.com">联系开发者获得卡密</a>
+            </div>
+            <div class="A24">
+                <div class="A25">
+                    <div style="color: aliceblue;">
+                        当前AI额度
+                    </div>
+                    <div style=" background: aliceblue;">
+                        {{AI_tokens}}
+                    </div>
+                </div>
+                <div class="A28" @click="get_ai_token(true)">
+                    更新
+                </div>
+            </div>
+            <div v-if="ai_tokens_de_arr.length>0" class="A27">
+                <div class="a4">
+                    AI额度使用记录
+                </div>
+                <div @click="ai_tokens_de_arr_zt=!ai_tokens_de_arr_zt">
+                    {{ai_tokens_de_arr_zt?"收起":"展开"}}
+                </div>
+            </div>
+            <div class="B29">
+                <div v-if="ai_tokens_de_arr_zt" class="A26" v-for="item in ai_tokens_de_arr">
+                    <div>
+                        时间:{{sjc_to_dt(item.time)}}
+                    </div>
+                    <div style="User-select: text;">
+                        详情:{{item.wx}}
+                    </div>
+                    <div style="User-select: text;" v-if="item.AI">
+                        AI:{{item.AI}}
+                    </div>
+                    <div v-if="item.de_ai_tokens<0">
+                        额度:{{item.de_ai_tokens}}
+                    </div>
+                    <div v-if="item.de_ai_tokens>0">
+                        额度:+{{item.de_ai_tokens}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="a7">
+            <div class="a4">
+                刷题
+            </div>
+            <div>
+                <div class="a3">
+                    <div v-for="item in st_ARR" class="a2" @click="tz_a(item.path)">
+                        {{item.name}}{{item.fenshu}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="a7">
+            <div class="a4">
+                参拜
+            </div>
+            <div>
+                <div class="a3">
+                    <div v-for="item in ShenXiangtu" class="a2" @click="tz_b(item.path)">
+                        {{item.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="a7">
+            <div class="a4">
+                六壬网盘资料
+            </div>
+            <div>
+                <div class="a6">
+                    <div :class="doc_zhou_index==index?'zhou_tab_xz':'zhou_tab_fxz'" v-for="(item,index) in doc_zhou"
+                        @click="doc_zhou_index=index,wplist_isOpen=true">
+                        {{item.name}}({{item.chaodai}})
+                    </div>
+                </div>
+            </div>
+            <details :open="wplist_isOpen">
+                <summary style="color: #999999;">点击展开/收起</summary>
+                <div>
+                    <div class="a8" v-for="item in
+                        doc_zhou[doc_zhou_index].xgzl">
+                        <div>
+                            书名:《{{item.name}}》
+                        </div>
+                        <div class="A32">
+                            <div>
+                                链接:{{item.url}}
+                            </div>
+                        </div>
+                        <div class="A32">
+                            <div>
+                                访问密码:{{item.pass}}
+                            </div>
+                        </div>
+                        <div class="A31" @click.stop="copyUrl(item.url,item.pass)">
+                            复制密码去下载
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+        </div>
+    </div>
+    <textarea id="PHTXT" style="width: 100vw;height:100vh;position:
+            absolute; top: -100vh;left: -200vw;"></textarea>
+</body>
+
+<script src="../../JS/vue.min.js"></script>
+<script src="./index.js"></script>
+
+
+</html>

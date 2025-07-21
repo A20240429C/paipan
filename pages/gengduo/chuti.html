@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题提升</title>
+    <link rel="stylesheet" href="../../root.css">
+</head>
+<style>
+
+    .zt_color{
+        color: var(--zhuti_clor);
+    }
+    .ztfz {
+        mix-blend-mode: difference;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0%;
+        User-select: none;
+        background: #f0f8ff00;
+    }
+
+    .dn_zx {
+        display: flex;
+        background: #ff9200;
+        padding: 1vw 5vw;
+        margin: 1vw;
+        color: aliceblue;
+        border-radius: 5px
+    }
+
+    .dn_fzx {
+        background: #ff920000;
+        padding: 1vw 5vw;
+        margin: 1vw;
+        color: aliceblue;
+        border-radius: 5px;
+        border: 1px solid #ff9200;
+        color: #ff9200
+    }
+
+    .a1 {
+        background: var(--zhuti_clor);
+        color: aliceblue;
+        text-align: center;
+        font-size: 120%;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between
+    }
+
+    .a2 {
+        text-align: center;
+        margin: 2vw 30vw;
+        background: black;
+        color: aliceblue;
+        padding: 1vw 0px
+    }
+
+    .a3 {
+        border-left: 1vw solid var(--zhuti_clor);
+        color: #999999;
+        margin: 2vw 1vw 1vw
+    }
+
+    .a4 {
+        font-size: 100%;
+        width: 95vw;
+        margin: 2vw
+    }
+
+    .a5 {
+        display: flex;
+        justify-content: space-around;
+        width: 80vw
+    }
+
+    .a6 {
+        text-align: center;
+        margin: 5vh 30vw 30vw;
+        background: #2a465e;
+        color: aliceblue;
+        padding: 2vw;
+        border-radius: 6px
+    }
+
+    .a7 {
+        border-left: 1vw solid var(--zhuti_clor);
+        color: #999999
+    }
+
+    .a8 {
+        display: flex;
+        align-items: center;
+        margin: 2vw 1vw
+    }
+
+    .a9 {
+        height: 2em;
+        margin-left: 1em;
+        width: 70vw
+    }
+</style>
+
+<body>
+    <div id="vuest">
+        <div class="a1">
+            <div onclick="location.href='./index.html'" style="width: 2em;height:2em">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+            <div>出题</div>
+            <div onclick="location.href='./index.html'" style="width: 2em;height:2em">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+        <div>
+            <div class="a3">
+                题干
+            </div>
+            <textarea id="tigan" placeholder="最多输入500个字符" maxlength="500" class="a4" rows="5"></textarea>
+        </div>
+         <div v-for="item in 'ABCD'">
+            <div class="a8">
+                <div class="a7">
+                    {{item}}选项
+                </div>
+                <input class="a9" :id="'dn_'+item" type="text">
+            </div>
+        </div>
+
+        <div>
+            <div class="a3">
+                解析
+            </div>
+            <textarea id="jiexi" placeholder="最多输入500个字符" maxlength="500" class="a4" rows="5"></textarea>
+        </div>
+
+        <div style="display: flex; align-items: center;">
+            <div class="a3">
+                答案
+            </div>
+            <div class="a5">
+                <div @click="timu_arr.dn_ok=item" :class="timu_arr.dn_ok==item?'dn_zx':'dn_fzx'"
+                    v-if="timu_kz['dn_'+item+'_ky']" style="display:flex" v-for="item in 'ABCD'">
+                    {{item}}
+                </div>
+            </div>
+        </div>
+        <div class="a6" @click="up_tm()">
+            提交
+        </div>
+    </div>
+</body>
+<script
+    src="../../JS/vue.min.js"></script>
+<script>
+new Vue({
+    el: '#vuest',
+    data() {
+        return {
+            timu_kz: {},
+            timu_arr: {
+                tigan: "",
+                dn_ok: ""
+            }
+        }
+    },
+    mounted() {},
+    created() {
+        window.top.setAllfont_family(document);
+
+        let thar = this;
+        let timu_kz = {};
+        console.log("获取题目");
+        let dsq = setInterval(function() {
+            let a = "ABCD".split("");
+            for (let i in a) {
+                let textarea = document.querySelector('#dn_' + a[i]);
+                textarea?.addEventListener('input', (e) => {
+                    timu_kz['dn_' + a[i] + "_ky"] = e.data == "" || e.data == null ? false : true;
+                    thar.timu_kz = timu_kz;
+                    thar.$forceUpdate();
+                    dsq && clearInterval(dsq)
+                })
+            }
+        }, 200)
+    },
+    methods: {
+        up_tm() {
+            if (!localStorage.getItem("token")) {
+                console.log("未登录，跳转登录页面");
+                window.top.xxk.dibutishi("当前未登录", 1500);
+                return
+            }
+            this.timu_arr.tigan = document.getElementById("tigan").value;
+            this.timu_arr.jiexi = document.getElementById("jiexi").value;
+            this.timu_arr.type = "set_tm";
+            this.timu_arr.token = localStorage.getItem("token");
+            let ZM = 'ABCD'.split("");
+            let dzx = {
+                a: "A",
+                b: "B",
+                c: "C",
+                d: "D"
+            };
+            let xzd = {
+                A: "a",
+                B: "b",
+                C: "c",
+                D: "d"
+            };
+            let daansl = 0;
+            for (let i in ZM) {
+                if (this.timu_kz['dn_' + ZM[i] + "_ky"]) {
+                    this.timu_arr["dn_" + xzd[ZM[i]]] = document.getElementById("dn_" + ZM[i]).value;
+                    daansl++
+                }
+            }
+            let data = this.timu_arr;
+            if (data.tigan.length == 0) {
+                window.top.xxk.dibutishi("未输入题干", 1500);
+                return
+            }
+            if (daansl <= 1) {
+                window.top.xxk.dibutishi("答案选项太少", 1500);
+                return
+            }
+            if (data.dn_ok == "") {
+                window.top.xxk.dibutishi("未选择正确答案", 1500);
+                return
+            }
+            if (data.jiexi == "") {
+                window.top.xxk.dibutishi("未填写解析", 1500);
+                return
+            }
+            window.top.xxk.loading("提交题目中", true);
+            window.top.callFunction({
+                name: 'web__liuren',
+                data,
+                success(res) {
+                    window.top.xxk.loading("提交题目中", false);
+                    if (res.result.errMsg == "collection.add:ok") {
+                        window.top.xxk.dibutishi("提交成功，加紧审核中", 3500)
+                    } else {
+                        window.top.xxk.dibutishi("提交失败:" + res?.result?.errMsg, 1500)
+                    }
+                },
+                fail: console.error
+            })
+        }
+    }
+}); 
+</script>
+
+
+</html>

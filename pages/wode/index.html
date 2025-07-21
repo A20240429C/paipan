@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,target-densitydpi=device-dpi">
+    <title>六壬起课</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../../root.css">
+</head>
+
+<body id="vue" style="opacity:0 ;">
+    <div id="BJKLLK" class="llk_b">
+        <div class="hz hzlb llk_db">
+            <div @click="bjkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+            <div style="font-size: 3vw;">编辑</div>
+            <div @click="bjkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+        <iframe id="BJKLLKsrc" style="width: 100vw;height: calc(100vh - 2em);" frameborder="0"></iframe>
+    </div>
+
+    <div id="LLKID" class="llk_b">
+        <div class="hz hzlb llk_db">
+            <div onclick="llkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+            <div class="hdbtl">六壬起个课</div>
+            <div onclick="llkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+        <iframe id="LLKsrc" style="width: 100vw;height: calc(100vh - 2em);" frameborder="0"></iframe>
+    </div>
+
+    <div v-if="dlzt">
+        <div class="a14">
+            <div style="color: #ffffff;padding-top: calc(2.5vh - .5em);text-align: center;">登录</div>
+            <!-- 导航栏 -->
+        </div>
+        <div class="zhuce_b">
+            <div class="zhuce_a">
+                <div class="zhuce_d">账号:</div>
+                <input pattern="[a-zA-Z0-9_-]{4,16}" v-model.trim="user_in" class="zhuce_c" id="user" type="text"
+                    maxlength="16">
+            </div>
+            <hr />
+            <div class="zhuce_a">
+                <div class="zhuce_d">密码:</div>
+                <input v-model.trim="pass_in" class="zhuce_c" id="pass" type="password" maxlength="32">
+            </div>
+            <hr />
+            <div id="czanky" class="dl_a">
+                <div @click="denglu" class="bt_1">
+                    登录
+                </div>
+            </div>
+            <div>
+                {{dljg}}
+            </div>
+
+        </div>
+        <div style="margin-top: 0.8em;text-align: center;font-size: 80%; color: var(--zhuti_clor);">
+            <p>注意:微信扫码登录、小程序内注册账号登录、安卓端QQ登录三个登录方式是独立账号，存档等信息不互通</p>
+           
+           
+        </div>
+        <div style="width:100vw;height:100vw;">
+            <hr style=" margin: 1vh 0px; background: #b5b5b5;height: 1px;border: 0px;" />
+
+            <div style="display: flex;justify-content: center;">
+
+                <div v-if="app_event_ok" @click="denglu_QQ()" class="a3">
+                    <div>
+                        <img style="width: 10vw;height: 10vw;" src="../../images/qq.png"
+                            alt="">
+                    </div>
+                    <div style="color: #61b5ff;font-size: 80%;">
+                        QQ登录
+                    </div>
+                </div>
+
+                <div @click="denglu_WX()" class="a3">
+                    <div>
+                        <img style="width: 10vw;height: 10vw;" src="../../images/wx.png"
+                            alt="">
+                    </div>
+                    <div style="color: #61b5ff;font-size: 80%;">
+                        微信登录
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="a4" v-if="wx_login_ima">
+        <div>
+            <div style="color: var(--zhuti_clor);font-size: 1.2em;    margin: 3vw 0px;;">微信扫一扫登录</div>
+            <div class="a6" @click="guanbi_wx_login()">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+        <img style="width: 100%;height: 100%;" :src="wx_login_ima" alt="">
+        <div class="a5" @click="denglu_WX()" v-if="wx_login_ima_shixiao">
+            登录码已过期，点击刷新登录码
+        </div>
+    </div>
+    <div v-if="!dlzt">
+        <div class="db">
+            <div class="hz hzlb a13">
+                <div v-if="G_tab==0" @click="glzt=!glzt" class="a7">
+                    {{glzt?'退出管理':'管理存档'}}
+                </div>
+                <div v-if="G_tab==1" style="color: #d7d7d7;">
+                    分析
+                </div>
+                <div v-if="G_tab==2" style="color: #d7d7d7;">
+                    出题
+                </div>
+                <div v-if="yxsl&&glzt&&G_tab==0" style="font-size: 70%;color: aliceblue;">
+                    已选{{yxsl}}个
+                </div>
+				<div v-if="G_tab==0&&!glzt" style="color: #e5e5e5;font-size: 77%;">
+					共有{{cdlist?.length}}个存档
+                </div>
+				
+                <div style="font-size: 99%;color: aliceblue;" @click="tuichudenglu()">
+                    退出登录
+                </div>
+            </div>
+
+            
+            <div  class="hz hzlb" style="height: 1.8em;">
+                <div v-for="(item,index) in wo_dat_tab" @click="G_tab=index"
+                    :class="G_tab==index?'G_css_xz':'G_css_fxz'">
+                    {{item}}
+                </div>
+            </div>
+
+            <div v-if="G_tab==0">
+                <div class="a11">
+                    <input id="SSK_ID"  type="search" @search="cd_sea_fun()" placeholder="搜索存档" type="text" class="a9" v-model="cd_sea">
+                    <div class="a10" @click="cd_sea_fun">搜索</div>
+                </div>
+            </div>
+
+
+            <div v-if="!sea_data_list&&G_tab==0">
+                <div v-if="cdlist?.length!=0" class="tab_lan">
+                    <div @click="tab_qh(item.name)" :class="item.xz?'listtab_xz':'listtab_fxz'"
+                        v-for="item in list_tab">
+                        {{item.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div v-if="G_tab==2">
+            <div class="wcttsys" v-if="!time_sc_arr">
+                <svg t="1670815110275" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="3747" width="200" height="200">
+                    <path
+                        d="M402.432 356.3008m-286.5152 0a286.5152 286.5152 0 1 0 573.0304 0 286.5152 286.5152 0 1 0-573.0304 0Z"
+                        fill="#9FDFFF" p-id="3748"></path>
+                    <path
+                        d="M731.648 546.9184m-253.0816 0a253.0816 253.0816 0 1 0 506.1632 0 253.0816 253.0816 0 1 0-506.1632 0Z"
+                        fill="#78CCFF" p-id="3749"></path>
+                    <path
+                        d="M268.4416 570.8288m-229.2224 0a229.2224 229.2224 0 1 0 458.4448 0 229.2224 229.2224 0 1 0-458.4448 0Z"
+                        fill="#78CCFF" p-id="3750"></path>
+                    <path d="M266.0864 570.8288h463.2064v229.2224H266.0864z" fill="#78CCFF" p-id="3751"></path>
+                    <path
+                        d="M324.096 831.232h17.6128l82.7392 118.9888h0.6144v-118.9888h16.7936v146.2272h-17.2032L341.504 857.2416h-0.6144v120.2176H324.096v-146.2272zM536.8832 809.5232h14.5408l-72.4992 188.416h-14.7456l72.704-188.416zM616.5504 831.232h19.456l57.5488 146.2272h-18.2272l-15.5648-40.96h-67.1744l-15.5648 40.96h-18.0224l57.5488-146.2272z m-18.6368 91.136h56.5248l-27.648-73.1136h-0.8192l-28.0576 73.1136z"
+                        fill="#78CCFF" p-id="3752"></path>
+                </svg>
+                <div style="color: #78ccff;font-size: 110%;">暂无出题</div>
+            </div>
+            <div v-else>
+                <div v-for="item in time_sc_arr">
+                    <div class="kelilist_a">
+
+
+                        <div class="a1">
+                            <div style="display: flex;width: 80vw;">
+                                <div class="a2" style="width: 3em;">题目:</div>
+                                <div class="hxhd klzt">
+                                    {{item.tigan}}
+                                </div>
+
+                            </div>
+                            <div @click="un_timu(item.id)" class="unfx">删除</div>
+                        </div>
+                        <div v-if="item.dn_a" class="hz wzbhh">
+                            <div class="a2">选项A:</div>
+                            <div class="hxhd klzt">
+                                {{item.dn_a}}
+                            </div>
+                        </div>
+                        <div v-if="item.dn_b" class="hz wzbhh">
+                            <div class="a2">选项B:</div>
+                            <div class="hxhd klzt">
+                                {{item.dn_b}}
+                            </div>
+                        </div>
+                        <div v-if="item.dn_c" class="hz wzbhh">
+                            <div class="a2">选项C:</div>
+                            <div class="hxhd klzt">
+                                {{item.dn_c}}
+                            </div>
+                        </div>
+                        <div v-if="item.dn_d" class="hz wzbhh">
+                            <div class="a2">选项D:</div>
+                            <div class="hxhd klzt">
+                                {{item.dn_d}}
+                            </div>
+                        </div>
+                        <div v-if="item.dn_ok" class="hz wzbhh">
+                            <div class="a2">
+                                正确答案:
+                            </div>
+                            <div class="hxhd klzt">
+                                {{item.dn_ok}}
+                            </div>
+                        </div>
+                        <div v-if="item.dn_ok" class="hz wzbhh">
+                            <div class="a2">
+                                解析:
+                            </div>
+                            <div class="hxhd klzt">
+                                {{item.jiexi}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="G_tab==1">
+            <div class="wcttsys" v-if="fenxilist?.length<1">
+                <svg t="1670815110275" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="3747" width="200" height="200">
+                    <path
+                        d="M402.432 356.3008m-286.5152 0a286.5152 286.5152 0 1 0 573.0304 0 286.5152 286.5152 0 1 0-573.0304 0Z"
+                        fill="#9FDFFF" p-id="3748"></path>
+                    <path
+                        d="M731.648 546.9184m-253.0816 0a253.0816 253.0816 0 1 0 506.1632 0 253.0816 253.0816 0 1 0-506.1632 0Z"
+                        fill="#78CCFF" p-id="3749"></path>
+                    <path
+                        d="M268.4416 570.8288m-229.2224 0a229.2224 229.2224 0 1 0 458.4448 0 229.2224 229.2224 0 1 0-458.4448 0Z"
+                        fill="#78CCFF" p-id="3750"></path>
+                    <path d="M266.0864 570.8288h463.2064v229.2224H266.0864z" fill="#78CCFF" p-id="3751"></path>
+                    <path
+                        d="M324.096 831.232h17.6128l82.7392 118.9888h0.6144v-118.9888h16.7936v146.2272h-17.2032L341.504 857.2416h-0.6144v120.2176H324.096v-146.2272zM536.8832 809.5232h14.5408l-72.4992 188.416h-14.7456l72.704-188.416zM616.5504 831.232h19.456l57.5488 146.2272h-18.2272l-15.5648-40.96h-67.1744l-15.5648 40.96h-18.0224l57.5488-146.2272z m-18.6368 91.136h56.5248l-27.648-73.1136h-0.8192l-28.0576 73.1136z"
+                        fill="#78CCFF" p-id="3752"></path>
+                </svg>
+                <div style="color: #78ccff;font-size: 110%;">无分析</div>
+            </div>
+
+            <div v-for="item in fenxilist" class="kelilist_a llktq">
+                <div class="hz hzlb" style="border-bottom: 1px solid #624e04;">
+                    <div class="fxname">
+                        {{item.name}}
+                    </div>
+                    <div @click="un_fuzhufenxi(item.name)" class="unfx">
+                        删除
+                    </div>
+                </div>
+                <div @click="bjktq(item.zhizhi, 'zhizhi', item.name)" class="hz wzbhh fxa">
+                    <div class="fxdata">
+                        直指:
+                    </div>
+                    <div class="hxhd klzt">
+                        {{item.zhizhi}}
+                    </div>
+                    <div class="xiugaianniu">
+                        <img style="height: 1.2em; width: 1.2em;"
+                            src="../../images/xiugai.png" />
+
+                        <div class="xiugaiys">
+                            修改
+                        </div>
+                    </div>
+                </div>
+
+                <div @click="bjktq(item.bifa, 'bifa', item.name)" class="hz wzbhh fxa">
+                    <div class="fxdata">
+                        毕法:
+                    </div>
+                    <div class="hxhd klzt">
+                        {{item.bifa}}
+                    </div>
+                    <div class="xiugaianniu">
+                        <img style="height: 1.2em; width: 1.2em;"
+                            src="../../images/xiugai.png" />
+                        <div class="xiugaiys">
+                            修改
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div @click="cd_shanchu()" v-if="yxsl&&glzt&&G_tab==0" class="dbsc hz hzjc">
+            <div class="hz" style="align-items: center;">
+                <div style="height: 2em;">
+                    <svg t="1670813743736" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2708" width="100%" height="100%">
+                        <path d="M106.666667 213.333333h810.666666v42.666667H106.666667z" fill="#ffffff" p-id="2709">
+                        </path>
+                        <path
+                            d="M640 128v42.666667h42.666667V128c0-23.573333-19.093333-42.666667-42.538667-42.666667H383.872A42.496 42.496 0 0 0 341.333333 128v42.666667h42.666667V128h256z"
+                            fill="#ffffff" p-id="2710"></path>
+                        <path
+                            d="M213.333333 896V256H170.666667v639.957333C170.666667 919.552 189.653333 938.666667 213.376 938.666667h597.248C834.218667 938.666667 853.333333 919.68 853.333333 895.957333V256h-42.666666v640H213.333333z"
+                            fill="#ffffff" p-id="2711"></path>
+                        <path
+                            d="M320 341.333333h42.666667v384h-42.666667zM490.666667 341.333333h42.666666v384h-42.666666zM661.333333 341.333333h42.666667v384h-42.666667z"
+                            fill="#ffffff" p-id="2712"></path>
+                    </svg>
+                </div>
+                <div>
+                    删除选中的{{yxsl}}个
+                </div>
+            </div>
+        </div>
+
+        <div v-if="sea_data_list&&G_tab==0" >
+            <!-- 这里是搜索结果 -->
+            <div class="a12">
+                搜索到{{sea_data_list.length}}个结果
+            </div>
+            <div @click="cundang_get(item)" class="kelilist_a" v-for="item in sea_data_list">
+                <div class="hz wzbhh" style="align-items: center;">
+                    <div style="color:var(--zhuti_clor)">时间:</div>
+                    <div class="hxhd klzt">
+                        {{item.dt.y}}年 {{item.dt.m}}月 {{item.dt.d}}日 {{item.dt.h}}时
+                        <text v-if="item.dt.i">{{item.dt.i}}分</text>
+                        {{item.zhs}} {{item.grxz}} {{item.shehai}}
+                    </div>
+                    <div @click.stop="cd_shanchu(item._id)" class="a8">
+                        删除
+                    </div>
+                </div>
+                <div class="hz wzbhh">
+                    <div style="color:var(--zhuti_clor)">问事:</div>
+                    <div class="hxhd klzt hz" v-if="item.fujia.cd_ws_ss" >      
+                        <div>
+                            {{item.fujia.cd_ws_ss[0]}}
+                        </div>  
+                        <div style="color:red">
+                            {{item.fujia.cd_ws_ss[1]}}
+                        </div> 
+                        <div>
+                            {{item.fujia.cd_ws_ss[2]}}
+                        </div>
+                    </div>
+                    <div v-else class="hxhd klzt">                        
+                        {{item.fujia.cd_ws}}
+                    </div>
+                </div>
+                <div class="hz wzbhh">
+                    <div style="color:var(--zhuti_clor)">断语:</div>
+                    <div class="hxhd klzt hz" v-if="item.fujia.cd_dy_ss" >      
+                        <div>
+                            {{item.fujia.cd_dy_ss[0]}}
+                        </div>  
+                        <div style="color:red">
+                            {{item.fujia.cd_dy_ss[1]}}
+                        </div> 
+                        <div>
+                            {{item.fujia.cd_dy_ss[2]}}
+                        </div>
+                    </div>
+                    <div v-else class="hxhd klzt">
+                        {{item.fujia.cd_dy}}
+                    </div>
+                </div>
+                <div class="hz wzbhh">
+                    <div style="color:var(--zhuti_clor)">反馈:</div>
+                    <div class="hxhd klzt hz" v-if="item.fujia.cd_fk_ss" >      
+                        <div>
+                            {{item.fujia.cd_fk_ss[0]}}
+                        </div>  
+                        <div style="color:red">
+                            {{item.fujia.cd_fk_ss[1]}}
+                        </div> 
+                        <div>
+                            {{item.fujia.cd_fk_ss[2]}}
+                        </div>
+                    </div>
+                    <div v-else class="hxhd klzt">
+                        {{item.fujia.cd_fk}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else>
+            <div v-if="!glzt&&G_tab==0">
+                <div v-if="cdlist?.length>0" @click="cundang_get(item)" class="kelilist_a" v-for="item in cdlist">
+                    <div class="hz wzbhh">
+                        <div style="color:var(--zhuti_clor)">时间:</div>
+                        <div class="hxhd klzt">
+                            {{item.dt.y}}年 {{item.dt.m}}月 {{item.dt.d}}日 {{item.dt.h}}时
+                            <text v-if="item.dt.i">{{item.dt.i}}分</text>
+                            {{item.zhs}} {{item.grxz}} {{item.shehai}}
+                        </div>
+                    </div>
+                    <div class="hz wzbhh">
+                        <div style="color:var(--zhuti_clor)">问事:</div>
+                        <div v-else class="hxhd klzt">
+                            {{item.fujia.cd_ws}}
+                        </div>
+                    </div>
+                    <div class="hz wzbhh">
+                        <div style="color:var(--zhuti_clor)">断语:</div>
+                        <div v-else class="hxhd klzt">
+                            {{item.fujia.cd_dy}}
+                        </div>
+                    </div>
+                    <div class="hz wzbhh">
+                        <div style="color:var(--zhuti_clor)">反馈:</div>
+                        <div v-else class="hxhd klzt">
+                            {{item.fujia.cd_fk}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div v-if="glzt&&G_tab==0">
+                <div @click="cundang_xz(item._id)" :style="item.xz?'background: #ffcb94;':'background: #ffffff;'"
+                    class="hz" v-for="item in glztlist">
+                    <div class="dxkys">
+                        <div style="height: 2em;" v-if="item.xz">
+                            <svg t="1670814310232" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="8035" width="100%" height="100%">
+                                <path
+                                    d="M512 853.333333c-187.733333 0-341.333333-153.6-341.333333-341.333333s153.6-341.333333 341.333333-341.333333 341.333333 153.6 341.333333 341.333333-153.6 341.333333-341.333333 341.333333z m0-85.333333c140.8 0 256-115.2 256-256s-115.2-256-256-256-256 115.2-256 256 115.2 256 256 256z m0-170.666667c-46.933333 0-85.333333-38.4-85.333333-85.333333s38.4-85.333333 85.333333-85.333333 85.333333 38.4 85.333333 85.333333-38.4 85.333333-85.333333 85.333333z"
+                                    fill="#1296db" p-id="8036"></path>
+                            </svg>
+                        </div>
+                        <div style="height: 2em;" v-if="!item.xz">
+                            <svg t="1670814359437" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="8221" width="100%" height="100%">
+                                <path
+                                    d="M533.333333 853.333333c-196.266667 0-354.133333-153.6-354.133333-341.333333s157.866667-341.333333 354.133333-341.333333 354.133333 153.6 354.133334 341.333333-157.866667 341.333333-354.133334 341.333333z m0-85.333333c149.333333 0 268.8-115.2 268.8-256S682.666667 256 533.333333 256s-268.8 115.2-268.8 256 123.733333 256 268.8 256z"
+                                    fill="#1296db" p-id="8222"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="kelilist_a" style="width: calc(100vw - .5em - 3em);">
+                        <div class="hz wzbhh">
+                            <div style="color:var(--zhuti_clor)">时间:</div>
+                            <div class="hxhd klzt">
+                                {{item.dt.y}}年 {{item.dt.m}}月 {{item.dt.d}}日 {{item.dt.h}}时
+                                <text v-if="item.dt.i">{{item.dt.i}}分</text>
+                                {{item.zhs}} {{item.grxz}} {{item.shehai}}
+                            </div>
+                        </div>
+                        <div class="hz wzbhh">
+                            <div style="color:var(--zhuti_clor)">问事:</div>
+                            <div v-else class="hxhd klzt">
+                                {{item.fujia.cd_ws}}
+                            </div>
+                        </div>
+                        <div class="hz wzbhh">
+                            <div style="color:var(--zhuti_clor)">断语:</div>
+                            <div v-else class="hxhd klzt">
+                                {{item.fujia.cd_dy}}
+                            </div>
+                        </div>
+                        <div class="hz wzbhh">
+                            <div style="color:var(--zhuti_clor)">反馈:</div>
+                            <div v-else class="hxhd klzt">
+                                {{item.fujia.cd_fk}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-if="G_tab==0">
+                <div class="wcttsys" v-if="cdlist?.length==0">
+                    <svg t="1670815110275" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="3747" width="200" height="200">
+                        <path
+                            d="M402.432 356.3008m-286.5152 0a286.5152 286.5152 0 1 0 573.0304 0 286.5152 286.5152 0 1 0-573.0304 0Z"
+                            fill="#9FDFFF" p-id="3748"></path>
+                        <path
+                            d="M731.648 546.9184m-253.0816 0a253.0816 253.0816 0 1 0 506.1632 0 253.0816 253.0816 0 1 0-506.1632 0Z"
+                            fill="#78CCFF" p-id="3749"></path>
+                        <path
+                            d="M268.4416 570.8288m-229.2224 0a229.2224 229.2224 0 1 0 458.4448 0 229.2224 229.2224 0 1 0-458.4448 0Z"
+                            fill="#78CCFF" p-id="3750"></path>
+                        <path d="M266.0864 570.8288h463.2064v229.2224H266.0864z" fill="#78CCFF" p-id="3751"></path>
+                        <path
+                            d="M324.096 831.232h17.6128l82.7392 118.9888h0.6144v-118.9888h16.7936v146.2272h-17.2032L341.504 857.2416h-0.6144v120.2176H324.096v-146.2272zM536.8832 809.5232h14.5408l-72.4992 188.416h-14.7456l72.704-188.416zM616.5504 831.232h19.456l57.5488 146.2272h-18.2272l-15.5648-40.96h-67.1744l-15.5648 40.96h-18.0224l57.5488-146.2272z m-18.6368 91.136h56.5248l-27.648-73.1136h-0.8192l-28.0576 73.1136z"
+                            fill="#78CCFF" p-id="3752"></path>
+                    </svg>
+                    <div style="color: #78ccff;font-size: 110%;">无存档</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+    <div v-if="!dlzt" @click="get_cundang(true);get_fuzhufenxi(true);get_timu(true)" class="djsc">
+
+        <div v-if="sxzt==3" class="sxjzsvg">
+            <!-- 刷新成功 -->
+            <svg t="1670819741922" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="11474" width="100%" height="100%">
+                <path
+                    d="M511.950005 512.049995m-447.956254 0a447.956254 447.956254 0 1 0 895.912508 0 447.956254 447.956254 0 1 0-895.912508 0Z"
+                    fill="var(--zhuti_clor)00" p-id="11475"></path>
+                <path
+                    d="M458.95518 649.636559L289.271751 479.95313c-11.698858-11.698858-30.697002-11.698858-42.39586 0s-11.698858 30.697002 0 42.395859l169.683429 169.68343c11.698858 11.698858 30.697002 11.698858 42.39586 0 11.798848-11.598867 11.798848-30.597012 0-42.39586z"
+                    fill="#FFFFFF" p-id="11476"></path>
+                <path
+                    d="M777.62406 332.267552c-11.698858-11.698858-30.697002-11.698858-42.39586 0L424.158578 643.437164c-11.698858 11.698858-11.698858 30.697002 0 42.39586s30.697002 11.698858 42.39586 0l311.069622-311.069622c11.798848-11.798848 11.798848-30.796992 0-42.49585z"
+                    fill="#FFFFFF" p-id="11477"></path>
+            </svg>
+        </div>
+        <div v-if="sxzt==1" class="sxjzsvg">
+            <!-- 刷新中 -->
+            <svg t="1670819242250" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="9972" width="100%" height="100%">
+                <g>
+                    <path
+                        d="M512 337.322667a26.666667 26.666667 0 0 1-26.666667-26.666667V197.333333a26.666667 26.666667 0 1 1 53.333334 0v113.322667c0 14.762667-11.946667 26.666667-26.666667 26.666667z"
+                        fill="#ffffff" p-id="9973"></path>
+                    <path
+                        d="M424.661333 360.746667a26.666667 26.666667 0 0 1-36.394666-9.728l-56.661334-98.133334a26.666667 26.666667 0 0 1 46.122667-26.666666l56.661333 98.133333a26.624 26.624 0 0 1-9.728 36.394667z"
+                        fill="#ffffff" opacity=".9" p-id="9974"></path>
+                    <path
+                        d="M360.746667 424.661333a26.624 26.624 0 0 1-36.394667 9.728l-98.133333-56.661333a26.624 26.624 0 1 1 26.666666-46.122667l98.133334 56.661334c12.714667 7.338667 17.066667 23.68 9.728 36.394666z"
+                        fill="#ffffff" opacity=".85" p-id="9975"></path>
+                    <path
+                        d="M337.322667 512c0 14.72-11.946667 26.666667-26.666667 26.666667H197.333333a26.666667 26.666667 0 1 1 0-53.333334h113.322667c14.762667 0 26.666667 11.946667 26.666667 26.666667z"
+                        fill="#ffffff" opacity=".8" p-id="9976"></path>
+                    <path
+                        d="M360.746667 599.338667a26.666667 26.666667 0 0 1-9.728 36.394666l-98.133334 56.661334a26.666667 26.666667 0 0 1-26.666666-46.122667l98.133333-56.661333a26.624 26.624 0 0 1 36.394667 9.728z"
+                        fill="#ffffff" opacity=".75" p-id="9977"></path>
+                    <path
+                        d="M424.661333 663.253333a26.624 26.624 0 0 1 9.728 36.394667l-56.661333 98.133333a26.624 26.624 0 1 1-46.122667-26.666666l56.661334-98.133334a26.666667 26.666667 0 0 1 36.394666-9.728z"
+                        fill="#ffffff" opacity=".7" p-id="9978"></path>
+                    <path
+                        d="M512 686.677333c14.72 0 26.666667 11.946667 26.666667 26.666667v113.322667a26.666667 26.666667 0 1 1-53.333334 0v-113.322667c0-14.762667 11.946667-26.666667 26.666667-26.666667z"
+                        fill="#ffffff" opacity=".65" p-id="9979"></path>
+                    <path
+                        d="M599.338667 663.253333a26.666667 26.666667 0 0 1 36.394666 9.728l56.661334 98.133334a26.666667 26.666667 0 0 1-46.122667 26.666666l-56.661333-98.133333a26.624 26.624 0 0 1 9.728-36.394667z"
+                        fill="#ffffff" opacity=".6" p-id="9980"></path>
+                    <path
+                        d="M663.253333 599.338667a26.624 26.624 0 0 1 36.394667-9.728l98.133333 56.661333a26.624 26.624 0 1 1-26.666666 46.122667l-98.133334-56.661334a26.666667 26.666667 0 0 1-9.728-36.394666z"
+                        fill="#ffffff" opacity=".55" p-id="9981"></path>
+                    <path
+                        d="M686.677333 512c0-14.72 11.946667-26.666667 26.666667-26.666667h113.322667a26.666667 26.666667 0 1 1 0 53.333334h-113.322667a26.666667 26.666667 0 0 1-26.666667-26.666667z"
+                        fill="#ffffff" opacity=".5" p-id="9982"></path>
+                    <path
+                        d="M663.253333 424.661333a26.666667 26.666667 0 0 1 9.728-36.394666l98.133334-56.661334a26.666667 26.666667 0 0 1 26.666666 46.122667l-98.133333 56.661333a26.624 26.624 0 0 1-36.394667-9.728z"
+                        fill="#ffffff" opacity=".4" p-id="9983"></path>
+                    <path
+                        d="M599.338667 360.746667a26.624 26.624 0 0 1-9.728-36.394667l56.661333-98.133333a26.624 26.624 0 1 1 46.122667 26.666666l-56.661334 98.133334a26.666667 26.666667 0 0 1-36.394666 9.728z"
+                        fill="#ffffff" opacity=".3" p-id="9984"></path>
+                    <animateTransform attributeName="transform" type="rotate" from="0 500 500" to="360 500 500" dur="1s"
+                        repeatCount="indefinite" />
+                </g>
+            </svg>
+        </div>
+        <div v-if="sxzt==0" class="sxjzsvg">
+            <!-- 等待刷新 -->
+            <svg t="1670819705398" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="10440" width="100%" height="100%">
+                <path
+                    d="M533.712538 101.851631c13.248955-7.183654 30.638839-1.148579 38.658739 13.420235l73.095947 132.862338c8.060201 14.558738 3.737918 32.351632-9.511037 39.535285s-30.648914 1.148579-38.658739-13.420234l-73.106023-132.862338c-8.009825-14.558738-3.727843-32.351632 9.521113-39.535286z"
+                    fill="#e6e6e6" p-id="10441"></path>
+                <path
+                    d="M700.347117 10.388501c-8.956898-12.090301-27.26363-13.883696-40.673789-4.030101L536.815715 96.350544c-13.410159 9.82337-17.047325 27.727091-8.060201 39.787167s27.273705 13.883696 40.683864 4.030101L692.266766 50.175668c13.410159-9.82337 17.047325-27.727091 8.080351-39.787167zM485.804718 922.148359c-13.248955 7.183654-30.648914 1.148579-38.658739-13.420235l-73.106022-132.862338c-8.009825-14.558738-3.727843-32.351632 9.521112-39.535285s30.648914-1.148579 38.658739 13.420234l73.106023 132.862338c8.009825 14.558738 3.727843 32.351632-9.521113 39.535286z"
+                    fill="#e6e6e6" p-id="10442"></path>
+                <path
+                    d="M319.160063 1013.611489c8.966974 12.090301 27.273705 13.883696 40.683865 4.030101l122.857613-89.982069c13.410159-9.82337 17.047325-27.727091 8.060201-39.787167s-27.273705-13.883696-40.683865-4.0301L327.25049 973.824322c-13.410159 9.82337-17.017099 27.727091-8.090427 39.787167z"
+                    fill="#e6e6e6" p-id="10443"></path>
+                <path
+                    d="M462.470436 928.485692a32.381857 32.381857 0 0 1-4.0301-0.251882A424.168076 424.168076 0 0 1 195.063194 790.112192a418.878569 418.878569 0 0 1-39.404307-507.520629 423.744915 423.744915 0 0 1 174.825759-152.488927 32.240804 32.240804 0 0 1 27.49536 58.325629 359.333834 359.333834 0 0 0-148.247246 129.305774 354.366735 354.366735 0 0 0 33.389382 429.387056A359.756995 359.756995 0 0 0 466.399784 864.255965a32.240804 32.240804 0 0 1-3.969649 64.229727zM660.852133 902.511694a32.240804 32.240804 0 0 1-12.191054-62.103848 358.678943 358.678943 0 0 0 160.408074-129.164721 354.376811 354.376811 0 0 0-31.29373-440.590735 359.36406 359.36406 0 0 0-229.927308-114.777262 32.243826 32.243826 0 0 1 6.297032-64.17935 423.785216 423.785216 0 0 1 271.135085 135.371075 418.868494 418.868494 0 0 1 36.915721 520.719208A423.029572 423.029572 0 0 1 673.033111 900.103709a32.109826 32.109826 0 0 1-12.180978 2.407985z"
+                    fill="#e6e6e6" p-id="10444"></path>
+            </svg>
+        </div>
+    </div>
+</body>
+<script src="../../JS/api.js" defer></script>
+<script src="../../JS/vue.global.min.js"></script>
+<script src="./index.js"></script>
+
+</html>

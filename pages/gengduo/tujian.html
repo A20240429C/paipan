@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九天玄女娘娘</title>
+    <link rel="stylesheet" href="../../root.css">
+</head>
+<style>
+    .zt_color {
+        color: var(--zhuti_clor);
+    }
+
+    .ztfz {
+        mix-blend-mode: difference;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0%;
+        User-select: none;
+        background: #f0f8ff00;
+    }
+
+
+    .a5 {
+        background: var(--zhuti_clor);
+        color: aliceblue;
+        text-align: center;
+        font-size: 120%;
+        padding: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0px
+    }
+
+
+
+    .a11 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center
+    }
+
+    .a12 {
+        width: 4.5em;
+    }
+
+    .a13 {
+        width: 100vw;
+        height: 100ch;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+
+    <body style="margin: 0px;padding: 0px;">
+        <div class="a5">
+            <div class="a12" onclick="location.href='./index.html'">
+                退出参拜
+            </div>
+            <div>参拜</div>
+            <div class="a12" onclick="location.href='./index.html'">
+                退出参拜
+            </div>
+        </div>
+        <div class="a13">
+            <img style="width: 100vw;" id="ima_">
+        </div>
+    </body>
+    <script>
+        let parseQuery = (url) => {
+            q = {};
+            url.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (q[k] = v));
+            return q
+        };
+        window.top.setAllfont_family(document);
+
+        let url_obj = parseQuery(location.href);
+        document.getElementById('ima_').src = 'https://file-hk.6ren.cn/images/' + url_obj.img + '.jpg'
+    </script>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>编辑页</title>
+        <link rel="stylesheet" href="../../root.css">
+    </head>
+    <style>
+    body{margin:0px;background:rgba(240,248,255,0);padding:0px;User-select:none}a:link{color:#1962c8}a:hover,a:visited,a:active,a:focus{color:#e90000}.kzl{height:1.5em;padding:0px 1em}.dban{width:100vw;display:flex;position:fixed;bottom:0px;background:#1962c8;justify-content:space-around}.bjqys{width:calc(100vw - 2.6vw - 2em);margin:0.5em 1.8vw;font-size:100%;height:85vh;padding:.5em}.bjl1{height:1.5em;display:flex;position:sticky;top:0px;background:#6a6a6a;padding:.1em .6em}.hz{display:flex}.hzlb{justify-content:space-between}.hzjc{justify-content:space-evenly}.hztk{justify-content:space-around}.hzdbdq{display:flex;align-items:baseline}.xbkx{border-bottom:2px solid var(--zhuti_clor)}.sbkx{border-top:2px solid var(--zhuti_clor)}.zbkx{border-left:2px solid var(--zhuti_clor)}.ybkx{border-right:2px solid var(--zhuti_clor)}.wztm{color:#ffffff00}*{margin:0;padding:0}:root{--margin-top:0;--margin-left:0;--animation-duration:0s;--animation-delay:0s}.ssk_a{position:sticky;top:0px;width:100vw;z-index:999;align-items:center}.ssk_b{width:calc(100vw - 4em);margin:.2em;padding:.25em;background:#ffffff7a;align-items:center;border-radius:.2em}.ssk_d{font-size:4vw;border-radius:.2em;border:1px solid #ffffff00;width:calc(100vw - 5.5em);padding:.2em .3em;background:#ffffff00}.sstz{width:12vw;font-size:4vw;text-align:center;color:#28c31e}.weisousuo{background:var(--zhuti_clor);align-items:center}.bjrd{align-items:center;background:linear-gradient(-45deg,var(--zhuti_clor),#000000,var(--zhuti_clor));background-size:600% 600%;animation:bjrd .3s ease infinite}@keyframes bjrd{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}.hdbtl{width:80vw;text-align:center;font-weight:600}
+</style>
+    <body id="hello-vue">
+        <div class="hz hzlb bjl1">
+            <div class="hz">
+                <div class="kzl" @click="bjy_ztdx=bjy_ztdx-5">
+                    <svg t="1670937300727" class="icon" viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="1303"
+                        width="100%" height="100%">
+                        <path
+                            d="M581.5 766.3h-82L440.8 609H201.4l-55.3
+                            157.4h-82l219-574.9h79.4l219 574.8zM417.8 544L331
+                            305c-2.7-7.7-5.7-21-8.9-40.1h-1.9c-2.7 17.3-5.8
+                            30.7-9.3 40.1l-86.1 239h193zM642
+                            477.9h315.6v63.7H642z"
+                            p-id="1304" fill="#ffffff"></path>
+                    </svg>
+                </div>
+                <div class="kzl" @click="bjy_ztdx=bjy_ztdx+5">
+                    <svg t="1670937277220" class="icon" viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="1097"
+                        width="100%" height="100%">
+                        <path
+                            d="M957.6
+                            541.6H831.7v126.3h-63.2V541.6H642v-63.7h126.5V351h63.2v126.9h125.9v63.7zM581.5
+                            766.3h-82L440.8 609H201.4l-55.3
+                            157.4h-82l219-574.9h79.4l219 574.8zM417.8 544L331
+                            305c-2.7-7.7-5.7-21-8.9-40.1h-1.9c-2.7 17.3-5.8
+                            30.7-9.3 40.1l-86.1 239h193z"
+                            p-id="1098" fill="#ffffff"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div :style="txt_length -
+                bjy_value.length==0?'color:red':'color:#f3f3f3'"
+                style="color:#f3f3f3">
+                {{txt_length}} / {{bjy_value.length}}
+            </div>
+            <div @click="sava_xg">
+                <div style="display: flex; justify-content: space-around;
+                    border-radius: .2em;color: #ffffff;">
+                    <div style="width:1.5em;height: 1.5em;">
+                        <svg t="1671099029983" class="icon" viewBox="0 0 1024
+                            1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="2997"
+                            width="100%" height="100%">
+                            <path
+                                d="M850.612 88C911.578 88 961 137.406 961
+                                198.35v671.3C961 930.593 911.578 980 850.612
+                                980H181.388C120.422 980 71 930.594 71
+                                869.65v-671.3C71 137.407 120.422 88 181.388
+                                88zM241.18 147.773h-59.792c-27.943 0-50.595
+                                22.644-50.595 50.578v671.298c0 27.934 22.652
+                                50.578 50.595 50.578h669.224c27.943 0
+                                50.595-22.644
+                                50.595-50.578V198.351c0-27.934-22.652-50.578-50.595-50.578H790.82v218.402c0
+                                60.336-48.439 109.362-108.562 110.336l-1.825
+                                0.015H351.568c-60.965
+                                0-110.387-49.406-110.387-110.35l-0.001-218.403z
+                                m489.846 0H300.974v218.402c0 27.654 22.201
+                                50.124 49.758 50.57l0.836 0.008h328.864c27.942 0
+                                50.594-22.645 50.594-50.578V147.773z m-65.874
+                                57.365c16.276 0 29.514 13.001 29.889
+                                29.181l0.008 0.706v91.904c0 16.506-13.385
+                                29.886-29.897 29.886-16.275
+                                0-29.513-13-29.888-29.18l-0.008-0.706v-91.904c0-16.506
+                                13.385-29.887 29.896-29.887z"
+                                fill="#ffffff" p-id="2998"></path>
+                        </svg>
+                    </div>
+                    <div style="padding-left: .4em;">
+                        保存
+                    </div>
+                </div>
+            </div>
+        </div>
+        <textarea class="bjqys" :style="'font-size:'+bjy_ztdx+'%'"
+            v-model="bjy_value" :maxlength="txt_length"
+            rows="5"></textarea>
+    </body>
+    <script src="../../JS/vue.global.min.js"></script>
+    <script>
+    Vue.createApp({
+        data() {
+            return {
+                txt_length: 4000,
+                bjy_value: "输入、保存",
+                bjy_ztdx: 80,
+                tezheng: "甲子日干上子",
+                key: "zhizhi",
+            }
+        },
+        watch: {
+            bjy_value(newName, oldName) {
+                window.top.callDB.set('bjq_guodu', {
+                    tezheng: this.tezheng,
+                    key: this.key,
+                    value: this.bjy_value
+                })
+            },
+            bjy_ztdx() {
+                window.top.callDB.set('bjy_ztdx', this.bjy_ztdx)
+            }
+        },
+        beforeCreate: function () { },
+        created: function () {
+            let thar = this;
+            window.top.callDB.get('bjq_guodu').then(res => {
+                thar.bjy_value = res.value;
+                thar.key = res.key;
+                thar.tezheng = res.tezheng;
+                thar.$forceUpdate();
+                window.top.callDB.get('bjy_ztdx').then(res => {
+                    if (res) {
+                        thar.bjy_ztdx = Number(res);
+                        thar.$forceUpdate()
+                    }
+                })
+            })
+        },
+        methods: {
+            sava_xg() {
+                let thar = this;
+                if (!localStorage.getItem("token")) {
+                    console.log("未登录，跳转登录页面");
+                    window.top.xxk.dibutishi("当前未登录,无法保存", 1500);
+                    return
+                }
+                if (localStorage.getItem("token") == null) {
+                    console.log("已注销登录");
+                    xk.dibutishi("当前未登录,无法保存", 1500);
+                    return
+                }
+                window.top.xxk.loading("保存中", true);
+                window.top.callFunction({
+                    name: "web__liuren",
+                    data: {
+                        type: "up_fuzhufenxi",
+                        token: localStorage.getItem('token'),
+                        data: {
+                            name: thar.tezheng,
+                            data: {
+                                [thar.key]: thar.bjy_value
+                            }
+                        }
+                    },
+                    success(res) {
+                        if (res.result == "token_false") {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("uuid");
+                            localStorage.removeItem("user_name");
+                            localStorage.removeItem("user_TouXiang")
+                            thar.shuaxin();
+                            window.top.xxk.tan0("提示", "登录失效，请重新登陆", "好的");
+                            localStorage.setItem("APP_QQ_login", "qq_login_zhuxiao")
+                            return
+                        }
+                        if (res.result.zt == "fuzhufenxi_up_true") {
+                            window.top.callDB.get(thar.tezheng).then(res => {
+                                if (res) {
+                                    res[thar.key] = thar.bjy_value;
+                                    window.top.callDB.set(thar.tezheng, res).then(res => {
+                                        window.top.xxk.dibutishi('保存成功,再一次起课时生效', 2500)
+                                    })
+                                } else {
+                                    window.top.callDB.set(thar.tezheng, {
+                                        [thar.key]: thar.bjy_value
+                                    }).then(res => {
+                                        window.top.xxk.dibutishi('保存成功,再一次起课时生效', 2500)
+                                    })
+                                }
+                            });
+                            window.top.callDB.get('xiugai_list').then(res => {
+                                if (res) {
+                                    if (!res.includes(thar.tezheng)) {
+                                        res.push(thar.tezheng)
+                                    }
+                                } else {
+                                    res = [];
+                                    res.push(thar.tezheng)
+                                }
+                            })
+                        } else {
+                            window.top.xxk.dibutishi('保存失败', 2500)
+                        }
+                        window.top.xxk.loading("保存中", false)
+                    }
+                })
+            }
+        }
+    }).mount('#hello-vue');
+</script>
+</html>

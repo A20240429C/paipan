@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单选题</title>
+    <link rel="stylesheet" href="../../root.css">
+</head>
+<style>
+
+    .zt_color{
+        color: var(--zhuti_clor);
+    }
+    .ztfz {
+        mix-blend-mode: difference;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0%;
+        User-select: none;
+        background: #f0f8ff00;
+    }
+
+    .dn_xz {
+        padding: .2em;
+        background: var(--zhuti_clor);
+        font-size: 200%;
+        color: aliceblue;
+        border-radius: 10px 10px;
+        border: 1px solid var(--zhuti_clor);
+        margin: 1vh 3vw
+    }
+
+    .dn_zq {
+        padding: .2em;
+        background: #1cad55;
+        font-size: 200%;
+        color: rgb(255 255 255);
+        border-radius: 10px 10px;
+        border: 1px solid #1cad55;
+        margin: 1vh 3vw
+    }
+
+    .dn_tx {
+        padding: .2em;
+        background: var(--zhuti_clor);
+        font-size: 200%;
+        color: aliceblue;
+        border-radius: 10px 10px;
+        border: 1px solid var(--zhuti_clor);
+        margin: 1vh 3vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center
+    }
+
+    .dn_fxz {
+        padding: .2em;
+        background: #0b6bc000;
+        font-size: 200%;
+        color: var(--zhuti_clor);
+        border-radius: 10px 10px;
+        border: 1px solid var(--zhuti_clor);
+        margin: 1vh 3vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dt_jg_xz {
+        border: 2px solid #000000;
+        padding: 2px;
+        border-radius: 6px;
+        color: #ffffff;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: .5em 6px
+    }
+
+    .dt_jg_fxz {
+        border: 2px solid #000000;
+        padding: 2px;
+        border-radius: 6px;
+        color: #000000;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: .5em 6px
+    }
+
+    .a1 {
+        text-align: center;
+        background: #db8419;
+        color: aliceblue;
+        padding: 1em;
+        border-radius: 3px
+    }
+
+    .a2 {
+        border-left: 1vw solid var(--zhuti_clor);
+        color: #999999;
+        margin: 2vw 1vw 1vw
+    }
+
+    .a3 {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 7vh 0px
+    }
+
+    .a4 {
+        background: var(--zhuti_clor);
+        color: aliceblue;
+        padding: 1em;
+        border-radius: 3px
+    }
+
+    .a5 {
+        background: var(--zhuti_clor);
+        color: aliceblue;
+        text-align: center;
+        font-size: 120%;
+        padding: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0px
+    }
+
+    .a6 {
+        margin: 1vh 0px 5vh 0px;
+        font-size: 120%;
+        color: #3a342c;
+        word-break: break-all;
+        text-indent: 2em
+    }
+
+    .a7 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly
+    }
+
+    .a8 {
+        text-align: center;
+        margin: 8vh 0px 0px;
+        font-size: 3em;
+        color: #bb3b0a
+    }
+
+    .a9 {
+        text-align: center;
+        margin: 3vh 30vw 50px;
+        background: #09243c;
+        color: aliceblue;
+        padding: 2vw
+    }
+
+    .a10 {
+        font-size: 100%;
+        width: 95vw;
+        margin: 2vw;
+        border-radius: 3px;
+        border: 2px solid var(--zhuti_clor);
+        border-radius: 2px
+    }
+
+    .a11 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center
+    }
+
+    .a12 {
+        height: 2em;
+        width: 2em;
+    }
+</style>
+<body>
+    <div id="vuest">
+        <div class="a5">
+            <div class="a12" onclick="location.href='./index.html'">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+            <div>单选题 - {{ndsc}}</div>
+            <div class="a12" onclick="location.href='./index.html'">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div v-if="tjdn">
+            <div>
+                <div>
+
+                    <div class="a2">第{{Number(tm_index)+1}}/{{tm_arr.length}}题</div>
+                </div>
+                <div>
+                    <div class="a6">
+                        题目:{{Number(tm_index)+1}}.{{tm_arr[tm_index]?.tigan}}
+                    </div>
+                </div>
+                <div>
+                    <div class="a2">
+                        选项
+                    </div>
+
+                    <div v-if="tm_arr.length>2" v-for="item in 'abcd'">
+                        <div v-if='tm_arr[tm_index]["dn_"+item]'>
+                            <div class="ztfz" :class="item==dt_arr[tm_index].zqdn?'dn_zq':'dn_fxz'">
+                                <div>{{item}}. {{tm_arr[tm_index]["dn_"+item]}}</div>
+                                <div class="a11">
+                                    <div style="font-size: 70%;
+                                    color: #833c12;">
+                                        {{item==dt_arr[tm_index].zqdn?'正确选项':''}}
+                                    </div>
+                                    <div style="    font-size: 70%;
+                                    color: #df0707;">
+                                        {{item==dt_arr[tm_index].xzdn?'答题选项':''}}
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="a2">
+                        解析
+                    </div>
+                    <div>
+                        <textarea resize="none" v-if="dt_arr[tm_index]?.dtobj?.jiexi" placeholder="" maxlength="500" class="a10"
+                            rows="5">{{dt_arr[tm_index]?.dtobj?.jiexi}}</textarea>
+                        <div v-else>
+                            -
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="a2">
+                答题结果
+            </div>
+            <div class="a7">
+                <div v-for="(item,index) in dt_arr">
+                    <!-- dt_jg_xz -->
+                    <div @click="tm_index=item.index" :class="index==tm_index?'dt_jg_xz':'dt_jg_fxz'">
+                        <div>
+
+                            第{{Number(item.index)+1}}题
+                        </div>
+
+                        <img :src="item.sfzq?'../../images/dui.png':'../../images/cuo.png'"
+                            alt="">
+    
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="a8">得分:{{dfqk}}</div>
+            </div>
+            <div class="a9" @click="load_up()">
+                重新答题
+            </div>
+        </div>
+        <div v-else>
+            <div>
+                <div class="a2">第{{tm_index+1}}/{{tm_arr.length}}题</div>
+            </div>
+            <div>
+                <div class="a6">
+                    {{tm_index+1}}.{{tm_arr[tm_index]?.tigan}}
+                </div>
+            </div>
+            <div>
+                <div class="a2">
+                    选项
+                </div>
+
+                <div v-for="item in 'abcd'">
+                    <div @click="[tm_arr[tm_index].dn_sel=item,SHUAXIN()]" class="ztfz"
+                        :class="item==tm_arr[tm_index].dn_sel?'dn_xz':'dn_fxz'" v-if='tm_arr[tm_index]["dn_"+item]'>
+                        {{item}}. {{tm_arr[tm_index]["dn_"+item]}}
+                    </div>
+                </div>
+            </div>
+            <div v-if="(tm_index + 1) ==this.tm_arr.length" class="a3">
+
+                <div class="a4" @click="tmqh('s')">上一题</div>
+
+                <div class="a1" @click="up_dn()">
+                    提交答案
+                </div>
+
+            </div>
+            <div v-else class="a3">
+                <div v-if="tm_index!=0" class="a4" @click="tmqh('s')">上一题</div>
+                <div class="a4" @click="tmqh('x')">下一题</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script    src="../../JS/vue.min.js"></script>
+<script>
+    let url_obj = {};
+    new Vue({
+     el: '#vuest',
+     data() {
+         return {
+             ndsc: "",
+             dfqk: "",
+             tjdn: false,
+             tm_index: 0,
+             tm_arr: JSON.parse(`[{"_id":"70dfd99b64c8e5930043d4d001645ecb","dn_a":"☷","dn_b":"☳","dn_c":"☶","dn_d":"☲","dn_ok":"D","nandu":"0","tigan":"八卦中离的卦画是?","_createTime":1690887571173,"_updateTime":1690887571173}]`)
+         }
+     },
+     mounted() {},
+     created() {
+        window.top.setAllfont_family(document);
+
+         let thar = this;
+         if (location.search.split('#')[0] != '') {
+             let a = location.search.split('#')[0];
+             if (a.length >= 1) {
+                 let b = a.split('?')[1];
+                 if (b.length >= 1) {
+                     let c = b.split("&");
+                     for (let i in c) {
+                         let a = c[i].split("=");
+                         url_obj[a[0]] = a[1]
+                     }
+                 }
+             }
+         };
+         if (url_obj) {
+             let ND_obj = ["入门级难度", "初级难度", "中级难度", "末级难度", "战网友难度"];
+             this.ndsc = ND_obj[url_obj.nd];
+             url_obj.type = 'get_tm';
+             window.top.xxk.loading("获取题目中", true);
+             window.top.callFunction({
+                 name: 'web__liuren',
+                 data: url_obj,
+                 success(res) {
+                     for (let i in res.result) {
+                         res.result[i].dn_sel = ""
+                     }
+                     thar.tm_arr = res.result;
+                     thar.$forceUpdate();
+                     window.top.xxk.loading("获取题目中", false)
+                 },
+                 fail: console.error
+             })
+         }
+     },
+     methods: {
+         tmqh(e) {
+             if (e == "s" && this.tm_index > 0) {
+                 this.tm_index--
+             }
+             if (e == "x" && this.tm_index + 1 < this.tm_arr.length) {
+                 this.tm_index++
+             }
+             this.$forceUpdate()
+         },
+         load_up() {
+             location.reload()
+         },
+         SHUAXIN() {
+             this.$forceUpdate()
+         },
+         up_dn() {
+             let dzx = {
+                 a: "A",
+                 b: "B",
+                 c: "C",
+                 d: "D"
+             };
+             let xzd = {
+                 A: "a",
+                 B: "b",
+                 C: "c",
+                 D: "d"
+             };
+             let zqts = 0;
+             let dt_arr = [];
+             for (let i in this.tm_arr) {
+                 console.log(this.tm_arr[i].dn_sel, xzd[this.tm_arr[i].dn_ok]);
+                 if (this.tm_arr[i].dn_sel == xzd[this.tm_arr[i].dn_ok]) {
+                     zqts++;
+                     dt_arr.push({
+                         index: i,
+                         sfzq: true,
+                         zqdn: xzd[this.tm_arr[i].dn_ok],
+                         xzdn: this.tm_arr[i].dn_sel,
+                         dtobj: this.tm_arr[i],
+                     })
+                 } else {
+                     dt_arr.push({
+                         index: i,
+                         sfzq: false,
+                         zqdn: xzd[this.tm_arr[i].dn_ok],
+                         xzdn: this.tm_arr[i].dn_sel,
+                         dtobj: this.tm_arr[i],
+                     })
+                 }
+             }
+             this.tjdn = true;
+             this.dfqk = (zqts / this.tm_arr.length * 100).toFixed(1);
+             localStorage.setItem("shuatifen_" + url_obj.nd, this.dfqk);
+             this.dt_arr = dt_arr;
+             this.$forceUpdate()
+         },
+     }
+ });
+</script>
+</html>

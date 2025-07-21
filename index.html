@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <link rel="dns-prefetch" href="https://fileliuren.oss-cn-hongkong.aliyuncs.com">
+    <meta http-equiv='content-language' content='zh-cn'>
+    <link rel="shortcut icon" href="./images/basicprofile.gif" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="./images/basicprofile.gif">
+    <meta property="url" content="./images/basicprofile.gif">
+    <meta property="type" content="article">
+    <meta property="title" content="大六壬起课软件">
+    <meta property="description" content="探秘六壬起课神器，提升命运质量">
+    <meta property="image" itemprop="image" content="./images/basicprofile.gif">
+    <meta charset="UTF-8">
+    <meta name="Generator" content="Microsoft FrontPage 4.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,target-densitydpi=device-dpi">
+    <meta http-equiv="windows-Target" content="_top">
+    <title>六壬起个课-国际版</title>
+    <meta data-rh="true" property="og:site_name" content="六壬个起课">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="./images/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./root.css">
+</head>
+</script>
+
+<body>
+    <div id="min_windown_bt" class="a21"
+        onclick='window.open ("/paipan", "newwindow2", "height=600, width=350, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no,left=100,top=100")'>
+        独立小窗口打开
+    </div>
+    <iframe id="back_yun_id" style="opacity:0;position: fixed;z-index:
+            -2;width: 100vw;height: 100vh;" frameborder="0"></iframe>
+    <div class="W0" id="vue" style="opacity:0">
+        <div id="W1" class="W1">
+            <!--整体框架-->
+            <div id="W2" class="zb_a a1">
+                <!-- tab页面 -->
+                <iframe :id="'llkid_'+index" seamless="seamless" scrolling="yes" frameborder="0" v-for="(item,index) in
+                        dhdata" v-show="item.xzzt" class="zb_a" :src="item.src" frameborder="0"></iframe>
+                <div class="a5 a6" @click="this.xb_tab('群聊');xinxiaoxi=false" v-if="xinxiaoxi">
+                    <div class="a7">
+                        <div class="a9">
+                            <img class="a8" :src="'https://fileliuren.oss-cn-hongkong.aliyuncs.com/'+xinxiaoxi.tx">
+                            <div class="a12">
+                                <div class="a4" style="color: #ffffff;">
+                                    {{xinxiaoxi.name}}
+                                </div>
+                                <div class="a4 a11"> {{xinxiaoxi.text}}</div>
+                            </div>
+                        </div>
+                        <div @click="xinxiaoxi=false" class="a10">
+                            ×
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="xb_a">
+                <!--底部导航-->
+                <div class="a20" :class="item.xzzt?'a2':'a3'" @click="xb_tab(item.name)" v-for="(item,index) in dhdata">
+                    {{item.name}}
+                </div>
+            </div>
+        </div>
+        <div class="a13" v-if="APP_gx.list.length>0">
+            <div class="a14">
+                更新提示
+            </div>
+            <div class="a18">
+                <div class="a15" v-for="item in APP_gx.list">
+                    <div>
+                        版本:{{item.ver}}
+                    </div>
+                    <div class="a19">
+                        <div>
+                            更新内容
+                        </div>
+                        <div v-for="(item2,index2) in item.comt">
+                            {{index2+1}}.{{item2}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="a17">
+                提示:"如果更新APP之后，出现某个功能不能正常使用，可通过卸载重装来解决问题。"
+            </div>
+            <div @click="APP_gx.list=[]" class="ztfz a16">
+                确认
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    window.addEventListener("error", (e) => {
+        if (e.target.tagName === "SCRIPT" && !(e instanceof ErrorEvent)) {
+            console.log("脚本加载失败", e.target.src)
+        }
+    }, true)  
+</script>
+<script>
+    function loadScript(url, callback) {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+
+        if (script.readyState) {  // IE
+            script.onreadystatechange = function () {
+                if (script.readyState === "loaded" || script.readyState === "complete") {
+                    script.onreadystatechange = null;
+                    callback(url);
+                }
+            };
+        } else {  // Others
+            script.onload = function () {
+                callback(url);
+            };
+        }
+        script.src = url;
+        document.head.appendChild(script);
+    }
+    if (location.host.indexOf("6ren.cn") == -1) {
+        loadScript('./JS/crypto-js.js', function (res) {
+            window.setup = setup;
+        });
+    }
+    loadScript('./JS/vue.min.js', function () {
+        loadScript('./JS/api.js', function () {
+            window.callDB = indexDB;
+            window.dq_time = dq_time;
+            loadScript('./index.js', function () {
+                loadScript('./JS/shensha.js', function () {
+                    window.ShenSha = ShenSha;
+                });
+                loadScript('./JS/cloudbase.full.js', function () {
+                    window.callFunction = callFunction;
+                    window.get_userinfo = get_userinfo;
+                    setTimeout(() => {
+                        loadScript('https://6ren.cn/6ren.js', function () {
+                        })
+                        if (localStorage.getItem('APP_VER')) {
+                            loadScript('https://6ren.cn/app/ver.js', function () {
+                                function getVersionsGreaterThan(inputVer) {
+                                    let result = VER_ARR.filter(item => item.ver > inputVer);
+                                    return result;
+                                }
+
+                                APP_gx.list = getVersionsGreaterThan(Number(localStorage.getItem('APP_VER')))
+                                console.log(APP_gx)
+                            })
+                        }
+
+                    }, 100)
+                });
+            });
+        });
+    });
+</script>
+<script>
+    let ziliao_zhiding = localStorage.getItem("ziliao_zhiding")
+    if (ziliao_zhiding?.length == undefined) {
+        localStorage.setItem("ziliao_zhiding", JSON.stringify(['4429a59c6458b60a0015a024009f4a78']))
+    }
+    let lrxhr;
+    if (window.XMLHttpRequest) {
+        lrxhr = new XMLHttpRequest()
+    } else {
+        lrxhr = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    lrxhr.onreadystatechange = function () {
+        if (lrxhr.readyState == 4 && lrxhr.status == 200) {
+            let data = JSON.parse(lrxhr.responseText);
+            localStorage.setItem("SC_MDJ", JSON.stringify(data.mzj));
+            localStorage.setItem("SC_SD", JSON.stringify(data.sd))
+        }
+    };
+    lrxhr.open("GET", 'https://liuren-sanchuan-api-kqxrzyduiq.cn-shanghai.fcapp.run');
+    setTimeout(() => {
+        lrxhr.send();
+    }, 10)
+    function setAllfont_family(DOCument) {
+        localStorage.getItem("back_selectedColor") && DOCument.documentElement.style.setProperty('--back_clor', localStorage.getItem("back_selectedColor"));
+        localStorage.getItem("zt_selectedColor") && DOCument.documentElement.style.setProperty('--zhuti_clor', localStorage.getItem("zt_selectedColor"));
+        localStorage.getItem("fonts_list_name") && DOCument.documentElement.style.setProperty('--fonts_list_name', localStorage.getItem("fonts_list_name"));
+    }
+ 
+
+    window.setAllfont_family = setAllfont_family;
+    function setdhlgd(DOCument) {
+        localStorage.getItem("dhl_height") && DOCument.documentElement.style.setProperty('--dhl_height', localStorage.getItem("dhl_height"));
+    }
+     window.setdhlgd = setdhlgd;
+
+</script>
+
+
+
+</html>

@@ -1,0 +1,363 @@
+.zt_color {
+    color: var(--zhuti_clor);
+}
+
+.a1 {
+    z-index: 20;
+    background: var(--zhuti_clor);
+    color: aliceblue;
+    text-align: center;
+    font-size: 120%;
+    padding: 5px;
+    position: sticky;
+    top: 0px
+}
+
+.a2 {
+    text-align: center;
+    background: var(--zhuti_clor);
+    color: aliceblue;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 3px
+}
+
+.a3 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around
+}
+
+.a4 {
+    border-left: 1vw solid var(--zhuti_clor);
+    color: #999999;
+    margin: 2vw 1vw 1vw;
+    padding-left: .3em
+}
+
+.a5 {
+    border-left: 1vw solid #d5bb01;
+    color: #999999;
+    margin: 2vw 1vw 1vw
+}
+
+.a6 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between
+}
+
+div::-webkit-scrollbar {
+    background-color: #ff262600;
+    height: 0px;
+    width: 0px
+}
+
+.zhou_tab_fxz {
+    margin: 3px 6px;
+    padding: 3px 6px;
+    border: 1px solid var(--zhuti_clor);
+    color: var(--zhuti_clor);
+    border-radius: 2px
+}
+
+.zhou_tab_xz {
+    margin: 3px 6px;
+    padding: 3px 6px;
+    border: 1px solid var(--zhuti_clor);
+    color: #fbfbfb;
+    border-radius: 2px;
+    background: var(--zhuti_clor)
+}
+
+.a7 {
+    margin: 5px 5px 15px 5px;
+    background: var(--back_clor);
+    padding: 3px;
+    box-shadow: 0px 2px 5px 0px #817373;
+    border-radius: 1px
+}
+
+.a8 {
+    font-size: 80%;
+    margin: 3px;
+    color: #545454;
+    border: 1px solid var(--zhuti_clor);
+    padding: 5px;
+    border-radius: 2px
+}
+
+::-webkit-scrollbar {
+    width: 0px
+}
+
+body {
+    margin: 0px;
+    padding: 0%;
+    User-select: none;
+    background: #dbdbdb00
+}
+
+.a9 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1px 6px
+}
+
+.a10 {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 6px;
+    border: 2px solid var(--zhuti_clor);
+    box-shadow: 0px 0px 7px 0px var(--zhuti_clor)
+}
+
+.a11 {
+    padding: 2px;
+    color: #ffffff;
+    font-size: 120%;
+    background: var(--zhuti_clor);
+    border-radius: 6px;
+    margin: 6px
+}
+
+.a12 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.a13 {
+    height: 1em;
+    margin-right: 1em
+}
+
+.a14 {
+    height: 2em;
+    margin-right: 1em;
+    color: white;
+    background: var(--zhuti_clor);
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    border-radius: 6px
+}
+
+.a15 {
+    display: flex;
+    padding: 2px 6px;
+    color: #8f8f8f;
+    margin: 1vh 0px
+}
+
+.a16 {
+    width: 13em
+}
+
+.a17 {
+    display: flex;
+    align-items: center
+}
+
+.a18 {
+    height: 2em;
+    margin-right: 1em;
+    color: var(--zhuti_clor);
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    border-radius: 6px;
+    border: 1px solid var(--zhuti_clor)
+}
+
+.hz {
+    display: flex;
+    align-items: center
+}
+
+.a19 {
+    background: white;
+    color: var(--zhuti_clor);
+    padding: 1px 6px;
+    margin: 1px 1px;
+    border-radius: 2px
+}
+
+.a20 {
+    background: var(--zhuti_clor);
+    color: aliceblue;
+    padding: 1px 6px
+}
+
+.a21 {
+    position: relative;
+    display: flex;
+    justify-content: center
+}
+
+.A29 {
+    bottom: 0px;
+    color: #ffffff;
+    padding: 1px 0px;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    background: #00000059;
+    text-align: center;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px
+}
+
+.A30 {
+    overflow-x: scroll;
+    top: 0px;
+    color: #ff0000;
+    padding: 1px 0px;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    background: #00000059;
+    text-align: center;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px
+}
+
+.A31 {
+    text-align: center;
+    margin: 3px 0px;
+    padding: 9px;
+    background: aliceblue;
+    border: 1px solid #9a9a9a;
+    border-radius: 2px
+}
+
+.A31:active {
+    background: #9ad0ff;
+    color: #ffffff;
+}
+
+.A32 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2px 0px;
+    align-items: center
+}
+
+.A24 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin: 20px 0px;
+}
+
+.A25 {
+    background: var(--zhuti_clor);
+    display: flex;
+    border: 1px solid var(--zhuti_clor);
+}
+.A25 div{
+    padding: 0px 6px;
+}
+.A26{
+    border-top: 2px solid var(--zhuti_clor);
+    border-right: 2px solid var(--zhuti_clor);
+    border-left: 2px solid var(--zhuti_clor);
+    border-bottom: 1px solid var(--zhuti_clor);
+    margin: 5px;
+    color: #0b6bc0;
+    margin-top: 20px;
+}
+.A26 div{
+    padding: 1px 2px;
+    border-bottom: 1px solid var(--zhuti_clor);
+}
+.A27{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.A28{
+    background: var(--zhuti_clor);
+    padding: 1px 3px;
+    color: white;
+    border-radius: 3px;
+    margin: 0px 10px;
+}
+.B29{
+    padding: 1px 6px;
+    max-height: 50vh;
+    overflow-y: scroll;
+    padding: 1px 6px;
+}
+.B30{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.B30 div{
+    margin: 0px 3px;
+}
+
+.B31{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.B32{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px 1px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.B32 div{
+    margin: 0px 6px;
+}
+.B33{
+    background: var(--zhuti_clor);
+    color: aliceblue;
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+.B34{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.B34 input{
+    width: 70%;
+    text-align: center;
+}
+
+.A35{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   margin: 40px 50px;
+}    
+.A36{
+    
+    background: var(--zhuti_clor);
+    color: white;
+    padding: 3px 26px;
+    border-radius: 3px;
+
+}

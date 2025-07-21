@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,target-densitydpi=device-dpi">
+    <title>六壬起课</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../../root.css">
+</head>
+
+<body>
+    <div class="d">
+        <div class="wg" ontouchend="end(event)" ontouchmove="move(event)" ontouchstart="start(event)">
+        </div>
+        <div class="e" id="yuanpan_svg">
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    <div id="vue" style="opacity:0" class="a">
+        <div class="b ztfz">
+            转盘层面
+        </div>
+        <div class="hz">
+            <div class="c" v-for="item in  kzt">
+                <p :class="item.xz?'xz':'fxz'" @click="ypkz_fun(item.value,item.name)"
+                    :style="'width:'+item.name.length+'.5em'">{{item.name}}</p>
+            </div>
+        </div>
+        <div class="f">
+            提示:手机上用手在圆盘上触摸转动
+        </div>
+        <div style="background: aliceblue;color: #008585;font-size: 90%;">
+            <div v-if="!gl" @click="GETsj()"
+                style="text-align: center;color: rgb(255, 255, 255);background: black;padding: .3em;">
+                获取当前时间
+            </div>
+            <div v-if="gl_y" class="hz">
+                <div>
+                    公历:
+                </div>
+                <div>
+                    {{gl_y}}年 {{gl_m}}月 {{gl_d}}日 {{gl_h}}时 {{gl_i}}分
+                </div>
+            </div>
+            <div v-if="gl_y" class="hz">
+                <div>
+                    四柱:
+                </div>
+                <div>
+                    {{fujia.sizhu.y}}年 {{fujia.sizhu.m}}月 {{fujia.sizhu.d}}日 {{fujia.sizhu.h}}时
+                </div>
+            </div>
+            <div v-if="gl_y" class="hz">
+                <div>
+                    农历:
+                </div>
+                <div>
+                    {{fujia.nongli.m}}月 {{fujia.nongli.d}} 节气:{{fujia.nongli.jq}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script
+    src="../../JS/vue.min.js"></script>
+<script src="./index.js"></script>
+
+</html>

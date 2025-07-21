@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>聊天框</title>
+    </head>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../../root.css">
+
+    <body>
+
+        <div id="vue">
+            <div v-if="cktp_url!=false" class="A35">
+                <div class="A22 A34">
+                    <div @click="cktp_url=false" class="llk_a">
+                        <svg width="100%" height="100%">
+                            <use xlink:href="../../components/cha.svg#cxx"></use>
+                        </svg>
+                    </div>
+                    查看图片
+                    <div @click="cktp_url=false" class="llk_a">
+                        <svg width="100%" height="100%">
+                            <use xlink:href="../../components/cha.svg#cxx"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="A36">
+                    <img class="A33" :src="cktp_url">
+                </div>
+
+
+
+            </div>
+            <div class="A28" @click="gundong(xxgd)">
+                {{xxgd?'↑':'↓'}}
+            </div>
+            <div class="A9">
+
+                <div class="A2">
+                    <div v-if="vip==999" class="A8">
+                        壬学爱好者交流
+                    </div>
+                    <div style="text-align: center;
+                    color: aliceblue;" v-if="vip!=999">
+                        通知与公告
+                    </div>
+                    <div v-if="vip==999"  class="A1">
+                        <textarea wrap="hard"
+                            :disabled="uuid=='token:undefine'||uuid==null"
+                            resize="none" class="A5"
+                            id="dlf_text"
+                            :placeholder="uuid=='token:undefine'||uuid==null?'未登录':'随便讨论点什么'"
+                            v-model="dlf_text" maxlength="1500" rows="5">{{dlf_text}}</textarea>
+                        <div :class="dlf_text.length>0?'A4':'A4_'">
+                            <div @click="push()">发送</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="A10" id="SNS">
+                    <div v-for="(item,index) in qunliao_data">
+                        <div class="A16" v-if="item.user_uuid==uuid">
+                            <div class="A18">
+                                <div class="A26 ztfz">
+                                    {{sdj_to_rqsj(item.ce_DateTime)}}
+                                </div>
+                                <div class="A17" @click="info_zs(item)">
+                                    <div :class="'root'+item.vip">
+                                        {{vip_arr[item.vip]}}
+                                    </div>
+                                    <div class="A12">
+                                        {{item.user_name}}
+                                    </div>
+                                </div>
+                                <div class="A14">
+                                    <span id="list" v-for="item_1 in
+                                        item.context">
+                                        <span class="A15"
+                                            v-if="item_1.type=='text'">
+                                            {{item_1.value}}
+                                        </span>
+                                        <span @click="copy_data(item_1.value)"
+                                            class="A31"
+                                            v-if="item_1.type=='url'">
+                                            {{item_1.value}}
+                                        </span>
+                                        <span @click="copy_data(item_1.value)"
+                                            class="A31"
+                                            v-if="item_1.type=='Number'">
+                                            {{item_1.value}}
+                                        </span>
+                                        <img v-if="item_1?.size<1"
+                                            class="A32"
+                                            data-zoomable
+                                            v-if="item_1.type=='image'"
+                                            :src="item_1.value">
+                                        <span v-if="item_1?.size>1"
+                                            @click="copy_data(item_1.value)"
+                                            class="A31" >
+                                            {{item_1.value}}
+                                        </span>
+                                    </span>
+                                </div>
+
+
+
+                            </div>
+                            <img @click="info_zs(item)" class="A7"
+                                :src="'https://fileliuren.oss-cn-hongkong.aliyuncs.com/'+item.user_TouXiang"
+                                alt="">
+                        </div>
+
+                        <div v-if="item.user_uuid!=uuid" class="A6">
+
+                            <img class="A7" @click="info_zs(item)"
+                                :src="'https://fileliuren.oss-cn-hongkong.aliyuncs.com/'+item.user_TouXiang"
+                                alt="">
+                            <div class="A20">
+                                <div class="A26 ztfz">
+                                    {{sdj_to_rqsj(item.ce_DateTime)}}
+                                </div>
+                                <div class="A11" @click="info_zs(item)">
+                                    <div class="A12">
+                                        {{item.user_name}}
+                                    </div>
+                                    <div :class="'root'+item.vip">
+                                        {{vip_arr[item.vip]}}
+                                    </div>
+                                </div>
+                                <div class="A14">
+                                    <span id="list" v-for="item_1 in  item.context">
+                                        <!-- {{item_1}} -->
+                                        <span class="A15"  v-if="item_1.type=='text'">
+                                            {{item_1.value}}
+                                        </span>
+                                        <span @click="copy_data(item_1.value)"
+                                            class="A31"
+                                            v-if="item_1.type=='url'">
+                                            {{item_1.value}}
+                                        </span>
+                                        <span @click="copy_data(item_1.value)"
+                                            class="A31"
+                                            v-if="item_1.type=='Number'">
+                                            {{item_1.value}}
+                                        </span>
+                                        <img v-if="item_1?.size<2"
+                                            data-zoomable
+                                            class="A32"
+                                            v-if="item_1.type=='image'"
+                                            :src="item_1.value">
+
+                                        <span v-if="item_1?.size>2"
+                                            @click="copy_data(item_1.value)"
+                                            class="A31" >
+                                            {{item_1.value}}
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="A29">
+                        <div class="A30">________________________底线________________________</div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="uuid_zs!=false" class="A23">
+                <div class="A22">
+                    <div @click="uuid_zs=false" class="llk_a">
+                        <svg width="100%" height="100%">
+                            <use xlink:href="../../components/cha.svg#cxx"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        信息资料展示
+                    </div>
+                    <div @click="uuid_zs=false" class="llk_a">
+                        <svg width="100%" height="100%">
+                            <use xlink:href="../../components/cha.svg#cxx"></use>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="A21">
+
+                    <img style="width: 30vw;
+                        height: 30vw;"
+                        :src="'https://fileliuren.oss-cn-hongkong.aliyuncs.com/'+TouXiang_zs"
+                        alt="">
+                    <div class="A24">
+                        <div>
+                            用户id:
+                        </div>
+                        <div class="A25">
+                            {{uuid_zs}}
+                        </div>
+
+                    </div>
+                    <div class="A24">
+                        <div>
+                            用户昵称:
+                        </div>
+                        <div class="A25">
+                            {{name_zs}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <iframe id="yanhuafashe" class="A27" frameborder="0"></iframe>
+    </body>
+    <script src="../../JS/medium-zoom.min.js"></script>
+    <script src="../../JS/vue.min.js"></script>
+    <script src="../../JS/cloudbase.full.js"></script>
+    <script>
+        let tcb_init = false; let app; const DSQ1 = setInterval(function () { if (typeof cloudbase != "undefined") { app = cloudbase.init({ env: "fun-4gztnwiq22c41afc" }); app.auth({ persistence: "session" }).anonymousAuthProvider().signIn().then((res) => { tcb_init = true }).catch((err) => { }); clearInterval(DSQ1) } }, 100); function id_jianting({ data, success }) { const DSQ2 = setInterval(function () { if (tcb_init) { clearInterval(DSQ2); let db = app.database(); const watcher = db.collection("jianting").where(data).watch({ onChange: function (snapshot) { let a = snapshot.docs; for (let i in a) { success(a[i]) } }, onError: function (err) { console.error("the watch closed because of error", err) } }) } }) }
+    </script>
+    <script src="./index.js"></script>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="divport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>六壬起课</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../../root.css">
+</head>
+
+<body class="parent">
+    <div id="LLKID" class="llk_b">
+        <div class="hz hzlb llk_db">
+            <div onclick="llkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+            <div id="LLKID_title" class="hdbtl"></div>
+            <div onclick="llkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="llkys">
+            <iframe class="llk_e" id="LLKsrc" frameborder="0"></iframe>
+        </div>
+
+    </div>
+
+
+
+
+    <div id="vue" style="opacity:0">
+
+        <div v-if="color_Picker==true" class="a40">
+            <div class="a41">
+                <div class="a42">
+                    <div class="ztfz" @click="color_Picker=false">
+                        关闭
+                    </div>
+                    <div class="ztfz">
+                        选择颜色
+                    </div>
+                    <div class="ztfz" @click="color_Picker=false">
+                        关闭
+                    </div>
+
+                </div>
+                <div class="a43">
+                    <div style="color: aliceblue;" class="ztfz">
+                        主题颜色
+                    </div>
+                    <div>
+                        <div>
+                            <input v-model="zt_selectedColor" @input="zt_onColorChange" type="color">
+                        </div>
+                    </div>
+                </div>
+                <div class="a48">
+                    <div style="color: aliceblue;" class="ztfz">
+                        背景
+                    </div>
+                    <div class="a49">
+                        <div v-for="item in back_sel_arr" @click="back_sel_arr_FC(item.name)"
+                            :class="item.xz?'csxz_xz':'csxz_wxz'">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+                <div v-if="this.back_sel_arr[0].xz" class="a43">
+                    <div style="color: aliceblue;" class="ztfz">
+                        背景颜色
+                    </div>
+                    <div>
+                        <input v-model="back_selectedColor" @input="back_onColorChange" type="color">
+                    </div>
+                </div>
+
+                <div class="a50" v-if="this.back_sel_arr[1].xz">
+                    <div class="a51">
+                        <input type="file" class="a52" @change="back_ima_onColorChange" accept="image/*">
+                        <label class="a53">
+                            选择背景图
+                        </label>
+                    </div>
+                    <img v-if="back_ima_get_file" :src="back_ima_get_file" class="a54">
+                </div>
+                <div v-if="APP_setup_sw" style=" padding: 5px; border-bottom: 1px solid var(--zhuti_clor);">
+                    <div class="hz" style="margin: 2px 10px;">
+                        <div>
+                            APP启动时加载图
+                        </div>
+                        <div style="font-size: 80%;color: #cdcdcd;">
+                            (仅在APP中生效)
+                        </div>
+                    </div>
+
+                    <div class="hz hzjc">
+                        <div v-for="(item,index) in APP_setup" :class="item.xz?'csxz_xz':'csxz_wxz'"
+                            @click="APP_SETUP_FUN(item.name)">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+                <div style="    padding: 17px 0px;" class="a43">
+                    <div class="a44" @click="color_Picker=false">
+                        保存不刷新
+                    </div>
+                    <div class="a45" @click="color_Picker=false;window.top.reload()">
+                        保存并刷新
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sb_A">
+            <div class="a33">
+                <div class="a46" @click="color_Picker=true">
+                    主题颜色
+                </div>
+            </div>
+            <div>
+                <div style="color: aliceblue;text-align: center;">
+                    首页
+                </div>
+                <div v-if="APP_ver!=0" style="text-align: center;font-size: 59%;color: #cdcdcd;">
+                    APP版本:{{APP_ver}}
+                </div>
+            </div>
+
+            <div class="a32">
+                <div class="a24 shake" @click="pages_ini_div=true">
+                    <svg t="1752146482305" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="4344" width="100%" height="100%">
+                        <path
+                            d="M540.69837806 1018.09194713h-57.31776975c-50.76190166 0-92.07176875-41.30986706-92.07176874-92.07176876v-21.87922217c-59.1081272-17.4559859-113.29277122-48.02370781-159.26283361-89.86015063l-17.16636925 9.89962399c-21.22100244 12.26921482-45.99639122 15.53398445-69.85027241 9.13608917-23.80122358-6.37156646-43.67945793-21.5896055-55.94867274-42.83693677l-28.64572046-49.65609259c-25.40727961-43.9427458-10.2945558-100.3653367 33.67451883-125.77261637l14.45450415-8.34622551a406.68761116 406.68761116 0 0 1-11.61099516-96.57399138c0-30.85733855 3.42274233-61.42506048 10.18924063-91.28190516l-13.00642085-7.50370435c-43.99540338-25.43360841-59.08179842-81.85619932-33.7008476-125.79894514l28.67204926-49.65609255c12.24288604-21.24733122 32.09479157-36.46537024 55.92234394-42.83693677 23.82755242-6.42422409 48.62926989-3.13312565 69.85027241 9.13608914l13.1380648 7.58269072c46.81258361-43.81110183 102.36632454-75.66893436 163.2648093-93.65149598v-15.79727232c0-50.76190166 41.30986706-92.07176875 92.07176875-92.07176878h57.3177697c50.76190166 0 92.09809756 41.30986706 92.09809752 92.07176878v18.64078132c59.13445601 18.82508278 112.89783941 50.73557292 158.02538065 93.78313992l18.35116464-10.58417245c44.04806094-25.38095085 100.4179943-10.24189819 125.79894515 33.6745188l28.64572043 49.68242139c12.29554362 21.22100244 15.53398445 46.02272 9.16241796 69.82394358-6.37156646 23.80122358-21.61593427 43.65312912-42.86326554 55.922344l-20.61544033 11.9006118c6.23992256 28.67204926 9.39937703 57.76535908 9.39937701 86.88499769 0 31.17328403-3.50172867 62.1359377-10.47885729 92.36138541l21.69492061 12.53250271c21.24733122 12.26921482 36.49169903 32.12112035 42.86326554 55.92234394 6.37156646 23.80122358 3.13312565 48.60294113-9.16241796 69.8502724l-28.64572043 49.62976386c-25.38095085 43.96907459-81.82987057 59.08179842-125.79894515 33.72717631l-22.37946906-12.92743449c-44.28502005 41.1255656-96.67930651 71.71961629-153.99707623 89.99179455v24.77538881c0.02632879 50.86721682-41.30986706 92.17708391-92.07176872 92.17708388zM245.47368742 715.70582643l21.35264639 22.53744184c46.78625485 49.41913354 106.23665625 82.90935081 171.95330903 96.78462159l31.17328404 6.6085256v84.35743415c0 7.29307406 6.13460741 13.42768145 13.42768143 13.42768145h57.31776975c7.29307406 0 13.45401025-6.13460741 13.4540102-13.42768145v-85.77918866l30.27810527-7.16143012c64.16325438-15.16538144 121.92861342-48.94521536 167.00349709-97.6798004l21.35264639-23.06401762 75.69526312 43.70578677c6.29258014 3.63337265 14.71779202 1.39542573 18.35116465-4.92348322l28.64572045-49.62976382c2.36959085-4.15994839 1.81668631-8.16192402 1.2901106-10.18924066-0.52657573-2.02731662-2.07997421-5.76600439-6.187265-8.16192399l-75.1686874-43.38984131 9.42570581-30.06747493c10.08392549-32.20010671 15.21803898-65.690324 15.21803901-99.54914432 0-31.88416127-4.68652411-63.76832256-13.92792846-94.80996266l-8.84647247-29.75152948 73.3256723-42.33668977c4.13361961-2.36959085 5.66068926-6.13460741 6.18726498-8.16192404 0.52657573-2.02731662 1.10580907-6.02929227-1.29011059-10.16291187l-28.64572044-49.6824214c-3.63337265-6.26625133-12.05858452-8.55685585-18.35116465-4.89715439l-72.45682236 41.83644285-21.29998881-23.69590848c-45.60145938-50.7092441-104.47262751-85.75285984-170.32092422-101.28684428l-30.27810527-7.16143012v-79.6445812c0-7.29307406-6.13460741-13.42768145-13.4540102-13.42768146h-57.31776975c-7.26674527 0-13.42768145 6.13460741-13.42768143 13.42768146v78.24915548l-31.17328404 6.58219682c-67.32270882 14.24387386-127.93157689 48.97154414-175.21807864 100.39166548l-21.32631762 23.19566151-66.63816037-38.49268685c-4.13361961-2.36959085-8.16192402-1.81668631-10.16291182-1.29011059-2.02731662 0.55290453-5.79233315 2.07997421-8.13559523 6.18726501l-28.69837804 49.68242138c-3.63337265 6.31890891-1.39542573 14.69146323 4.94981197 18.35116469l66.32221493 38.28205652-9.32039068 30.01481742c-9.87329518 31.83150368-14.87576479 65.00577552-14.87576474 98.60130797 0 34.83298545 5.55537408 69.53432693 16.53447833 103.07720179l9.89962399 30.33076283-68.58649059 39.57216713c-6.29258014 3.63337265-8.55685585 12.03225573-4.92348321 18.32483586l28.67204925 49.68242142c2.36959085 4.13361961 6.13460741 5.63436045 8.16192402 6.18726498 2.00098785 0.52657573 6.02929227 1.10580907 10.16291182-1.29011059l69.87660121-40.28304432z"
+                            fill="#f0f8ff" p-id="4345"></path>
+                        <path
+                            d="M512.05265756 717.23289604c-112.50290759 0-204.02177183-91.5188642-204.02177181-204.02177182s91.5188642-204.02177183 204.02177181-204.02177184 204.02177183 91.5188642 204.02177185 204.02177184-91.5188642 204.02177183-204.02177185 204.02177182z m0-329.39945635c-69.13939514 0-125.37768452 56.23828939-125.37768454 125.37768453s56.23828939 125.37768452 125.37768454 125.37768452c69.13939514 0 125.37768452-56.23828939 125.37768452-125.37768452s-56.26461818-125.37768452-125.37768452-125.37768453z"
+                            fill="#f0f8ff" p-id="4346"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="dbk">
+            <div class="xbkx listsxbj" style="text-align:
+                    center;letter-spacing: .5em;color: #54544e;text-align: center;">
+                六壬起课
+            </div>
+            <div class="hz hzlb xbkx listsxbj">
+                <div class="a1 ztfz">
+                    起课方式
+                </div>
+                <div class="hz xxwzys spjz" style="width: 70vw;display:
+                        flex;justify-content: flex-end;">
+                    <div @click="qkfsxz(item.name)" class="a23" v-for="item in qk_zhs">
+                        <div :class="item.xz?'csxz_xz':'csxz_wxz'">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hz hzlb xbkx listsxbj">
+                <div class="a1 ztfz">
+                    贵人方式
+                </div>
+                <div class="hz xxwzys spjz" style="width: 70vw;display:
+                        flex;justify-content: flex-end;">
+                    <div @click="grfsxz(item.name)" class="a23" v-for="item in qk_grxzfs">
+                        <div :class="item.xz?'csxz_xz':'csxz_wxz'">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hz hzlb xbkx listsxbj">
+                <div class="a1 ztfz">
+                    昼夜贵人
+                </div>
+                <div class="hz xxwzys spjz" style="width: 70vw;display:
+                        flex;justify-content: flex-end;">
+                    <div @click="zygrxz(item.name)" class="a23" v-for="item in qk_zygr">
+                        <div :class="item.xz?'csxz_xz':'csxz_wxz'">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hz hzlb xbkx listsxbj">
+                <div class="a1 ztfz">
+                    涉害方式
+                </div>
+                <div class="hz xxwzys spjz" style="width: 70vw;display:
+                        flex;justify-content: flex-end;">
+                    <div @click="shxz(item.name)" class="a23" v-for="item in qk_shxz">
+                        <div :class="item.xz?'csxz_xz':'csxz_wxz'">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="qk_zhs_index!=2" class="hz xbkx" style="flex-direction: column;">
+                <div class="hz hzlb listsxbj" style="align-items: flex-start;">
+                    <div class="a1 ztfz" @click="yjxz_sn=!yjxz_sn">
+                        月将 - <span style="text-decoration: underline;">{{yjxz_sn?'展开':'收起'}}</span>
+
+                    </div>
+                    <div class="hz xxwzys spjz a6">
+                        <div v-if="!yjxz_sn || index < 3" @click="glyjxz(item.name)"
+                            :class="item.xz?'csxz_xz':'csxz_wxz'" class="a7" v-for="(item,index) in GLZXYJ">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="qk_zhs_index!=2" class="hz hzlb xbkx" style="line-height: 3em;">
+                <div class="a1 ztfz">
+                    出生年或年龄/性别
+                </div>
+                <div>
+                    <div class="hz">
+                        <div class="xxwzys spjz hz">
+                            <input @blur="nl_hdjd=false" @focus="nl_hdjd=true" maxlength="3" class="a55"
+                                v-model.number="qk_age" type="number">
+                            <div class="a1">岁</div>
+
+                        </div>
+                        <div class="hz xxwzys spjz" style="display:
+                                flex;justify-content: flex-end;">
+                            <div @click="sexxz(item.name)" class="a23" v-for="item in qk_sex">
+                                <div :class="item.xz?'csxz_xz':'csxz_wxz'">{{item.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ztfz a58" v-if="nl_hdjd">(输入<p>年龄</p>或<p>出生年</p>)</div>
+                </div>
+            </div>
+            <div v-if="qk_zhs_index==0" class="hz hzlb listsxbj" style="border-bottom: 1px dashed var(--zhuti_clor);">
+                <div class="a1 ztfz">
+                    时间选择
+                </div>
+
+                <div v-if="!ios_time_jr" class="hz xxwzys spjz " style="display: flex;justify-content: space-between">
+                    <div @click="dtxz()" class="timesel">
+                        {{qk_time}}
+                    </div>
+                </div>
+
+                <div v-else class="A61">
+                    <input id="ios_date_sel_id" class="A60" type="date" value="2023-03-04" min="1951-01-01"
+                        max="2050-12-31">
+                    <input id="ios_time_sel_id" type="time" value="05:06" class="A60">
+                </div>
+
+
+            </div>
+
+            <div v-if="qk_zhs_index==1" class="hz hzlb xbkx listsxbj">
+                <div class="a1 ztfz">
+                    活时报数
+                </div>
+
+                <div class="hz xxwzys spjz" style="width: 70vw;display:
+                        flex;justify-content: flex-end;">
+                    报数:<input maxlength="3" style="width: 3.5em;text-align:
+                            center;" v-model.number="qk_hss" type="number">选用{{hsdz}}时
+                </div>
+            </div>
+            <div v-if="qk_zhs_index==2" class="hz hzlb xbkx listsxbj">
+                <div class="a1 ztfz">
+                    四柱选择
+                </div>
+                <div class="hz xxwzys spjz" style="width: 70vw;display:
+                        flex;justify-content: flex-end;">
+                    <div @click="szk_tc()" class="timesel">
+                        {{qk_sizhu}}
+                    </div>
+                </div>
+            </div>
+            <div v-if="qk_zhs_index==3" class="xbkx listsxbj">
+                <div class="a1" class="spjz ztfz" style="border-bottom: 1px solid
+                        black;text-align: center;">
+                    真太阳时: {{tys_zhen_time}}(起课时间)
+                </div>
+                <div class="hz hzlb spjz a11">
+                    <div class="a1 ztfz">经度:</div>
+                    <input class="a12" type="text" value="经度" v-model="in_jingdu">
+                    <div class="xzjd ztfz" @click="jwd_tq()">手动选择</div>
+                    <div class="xzjd2 ztfz" @click="getjwd()">ipv4获取</div>
+                    <div v-if="APP_ver!=0" class="xzjd2 ztfz" @click="get_APP_dw(APP_dw_get)">
+                        {{APP_dw_get?'停止获取':'APP获取'}}</div>
+                </div>
+                <div v-if="!ios_time_jr" class="spjz">
+                    <div @click="dtxz()" class="xxwzys timesel">
+                        选择时间: {{qk_time}}
+                    </div>
+                </div>
+                <div v-else style="display:flex ;justify-content:
+                        space-around;margin: .3em;">
+                    <input id="ios_date_sel_id" class="date-picker" type="date" value="2023-03-04" min="1951-01-01"
+                        max="2050-12-31">
+                    <input id="ios_time_sel_id" type="time" value="05:06">
+                </div>
+
+            </div>
+            <div v-if="qk_zhs_index==0||qk_zhs_index==3" class="hz hzjc
+                    xbkx" style="align-items: center;">
+                <div v-if="qk_zhs_index==0" @click="time_nl_xz=!time_nl_xz" style="color: var(--zhuti_clor)">
+                    <input style="width: 1em;height: 1em;" :checked="time_nl_xz" type="checkbox">农历</input>
+                </div>
+                <div @click="dt_up()" class="hz czsj">
+                    <svg t="1685354282813" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="1479" width="16" height="16">
+                        <path d="M181.731 569.606l63.275-8.713A331.732 331.732 0 0
+                            1 242.255 501l-63.809-2.835a395.86 395.86 0 0 0
+                            3.285 71.441z" fill="#ffffff" p-id="1480"></path>
+                        <path d="M569.205 906.945c52.791 0 104.019-10.346
+                            152.263-30.752 46.581-19.703 88.409-47.902
+                            124.321-83.814 35.912-35.912 64.111-77.74
+                            83.814-124.322 20.405-48.244 30.752-99.471
+                            30.752-152.263
+                            0-52.791-10.346-104.019-30.752-152.263-19.703-46.581-47.902-88.409-83.814-124.321-35.912-35.912-77.74-64.111-124.321-83.814-48.244-20.405-99.472-30.752-152.263-30.752-101.406
+                            0-197.547 38.644-270.712 108.813-72.938
+                            69.952-115.572 163.96-120.047 264.706L242.255
+                            501c7.783-175.224 151.397-312.483 326.95-312.483
+                            180.462 0 327.278 146.817 327.278 327.278S749.667
+                            843.074 569.205 843.074c-69.625
+                            0-136.091-21.563-192.21-62.357L339.44 832.38c67.106
+                            48.781 146.558 74.565 229.765 74.565z" fill="#ffffff" p-id="1481"></path>
+                        <path d="M222.367 629.329c8.173 0 16.346-3.118
+                            22.581-9.354l117.233-117.232c12.472-12.471
+                            12.472-32.692
+                            0-45.164-12.471-12.472-32.692-12.472-45.163
+                            0L199.786 574.811c-12.472 12.472-12.472 32.693 0
+                            45.164 6.236 6.236 14.409 9.354 22.581 9.354z" fill="#ffffff" p-id="1482"></path>
+                        <path d="M215.632 631.398c8.174 0 16.345-3.117
+                            22.581-9.354 12.472-12.471 12.472-32.692
+                            0-45.164L120.981
+                            459.648c-12.47-12.471-32.691-12.471-45.163 0-12.472
+                            12.472-12.472 32.692 0 45.164l117.233 117.232c6.234
+                            6.235 14.409 9.354 22.581 9.354z" fill="#ffffff" p-id="1483"></path>
+                    </svg>
+                    <div>重置时间</div>
+                </div>
+            </div>
+
+
+            <div class="hz hzjc">
+
+                <div class="qkan" @click="lrqk()">
+                    起课
+                </div>
+            </div>
+
+        </div>
+
+        <div class="a56">
+            <div @click="dkqqqun()" class="a47" style="font-size: 80%;">
+                QQ交流群
+            </div>
+            <div class="a39" style="font-size: 80%;"
+                @click="window.open(APP_ver==0?'https://6ren.cn/app':'https://www.6ren.cn')">
+                {{APP_ver==0?"APP下载":"www.6ren.cn"}}
+            </div>
+            <div class="progress" style="font-size: 80%;" @touchstart="debug_mousedown()" @touchend="debug_mouseup()"
+                @mousedown="debug_mousedown()" @mouseup="debug_mouseup()">
+                长按修复bug
+            </div>
+
+            <div class="ztfz a57" @click="tebiemingxie()" style="color: var(--zhuti_clor);font-size: 80%;">特别鸣谢>>></div>
+        </div>
+
+        <div v-if="pages_ini_div===true" class="a16">
+            <div class="a35">
+                <div class="a17">
+                    <div class="a21">
+                        已开启{{ Object.keys(pages_ini_arr).filter(key =>
+                        pages_ini_arr[key]).length}}/{{Object.keys(pages_ini_arr).length}}个页面
+                    </div>
+                    <div class="a22">
+                        <div :style="index=='首页'?'background: #838383;':''" v-for="(item,index) in
+                            pages_ini_arr" @click="index!='首页'&&(pages_ini_set(index))"
+                            :class="item==true?'a19':'a20'">
+                            {{index}}
+                        </div>
+                    </div>
+                    <div class="A64">
+                        <div>你的系统支持的字体有{{ fonts_list.length}}个</div>
+                        <div class="A62">
+                            <div @click="sel_family(item)" v-if="fonts_list.length>0" v-for="item in fonts_list"
+                                :class='fonts_list_name==item?"A63_XZ":"A63_FXZ"' :style='to_family_style(item)'>
+                                {{item}} - {{family_to_cn(item)}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="a29">
+                        <div @click="pages_ini_div=false" class="a30">
+                            保存不刷新
+                        </div>
+                        <div @click="pages_ini_sava()" class="a18">
+                            保存并刷新
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="qkjl.length!=0" class="qkjl_A">
+            <div class="qkjl_B hz hzlb a38">
+                <div class="a5">
+                    起课记录 {{qkjl.length}} 条
+                </div>
+                <div class="a37" @click="un_jlcf()">
+                    清理重复记录
+                </div>
+            </div>
+            <div @click="qkju_tab(item)" v-for="(item,index) in qkjl" class="a15" :class="index%2==0?'a13':'a14'">
+                <div class="hz qkjl_C">
+                    <div class="qkjl_D">
+                        <div class="qkjl_E">
+                            {{item.dt.y}}年 {{item.dt.m}}月 {{item.dt.d}}日
+                            {{item.dt.h}}时 <text v-if="item?.dt?.i">{{item.dt.i}}分</text>
+
+                            <span v-if="item.yj&&item.dt.y.length==2">{{item.yj}}将</span>
+                        </div>
+                        <div class="qkjl_E">
+                            {{item.zhs}}起课 {{item.zygr}} {{item.shehai}}
+                            {{item.sex}} {{item.grxz}} 月将选择:{{item.glzxyj}}
+                        </div>
+                        <div class="qkjl_F">
+                            起局时间 {{item.qjsj}}
+                        </div>
+                        <div class="a36" v-if="item.cdtxt">
+                            已保存到云端:{{item.cdtxt.cd_ws}}
+                        </div>
+                    </div>
+                    <div @click.stop="scqkjl(item.QKSJC)" class="qkjl_G">
+                        删除
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-bind:style="mbtx" style="transition: top 0.8s;z-index:99;" class="fdmb2">
+            <div v-if="mbtx=='top:12%;'" class="a27"></div>
+            <!-- 浮动面板 -->
+            <div class="hz hzlb a25">
+                <div @click="szk_sq" class="a26">
+                    关闭
+                </div>
+                <div class="a26">
+                    四柱起课
+                </div>
+                <div @click="szk_sq" class="a26">
+                    关闭
+                </div>
+            </div>
+            <div class="hz hzjc">
+                <div style="width:30%;font-size: 130%;" class="wbk wbkys2">
+                    <!--年干支-->
+                    <div class="zy2hdbz2 wbjz dljz">年</div>
+                    <div class="hz hzjc ">
+                        <div>
+                            <!--年干-->
+                            <div @click="Y_GAN_SEL(item.name)" :class="item.style" v-for="item in Y_GAN">{{item.name}}
+                            </div>
+                        </div>
+                        <div>
+                            <!--年支-->
+                            <div @click="Y_ZHI_SEL(item.name)" :class="item.style" v-for="item in Y_ZHI">{{item.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:20%;font-size: 130%;" class="wbk wbjz
+                        wbkys2">
+                    <!-- 月支 -->
+                    <div class="zy2hdbz2 wbjz dljz">月</div>
+                    <div style="justify-content: space-evenly;display:
+                            flex;flex-direction: column;padding: 0px .2em;">
+                        <div @click="M_ZHI_SEL(item.name)" v-for="item in
+                                M_ZHI" :class="item.style">{{item.name}}
+                        </div>
+                    </div>
+                </div>
+                <div style="width:20%;font-size: 130%;" class="wbk wbkys2">
+                    <!-- 日干支 -->
+                    <div class="zy2hdbz2 wbjz">日</div>
+                    <div class="hz hzjc ">
+                        <div>
+                            <!--日干-->
+                            <div @click="D_GAN_SEL(item.name)" :class="item.style" v-for="item in D_GAN">{{item.name}}
+                            </div>
+                        </div>
+                        <div>
+                            <!--日支-->
+                            <div @click="D_ZHI_SEL(item.name)" :class="item.style" v-for="item in D_ZHI">{{item.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:20%;font-size: 130%;" class="wbk wbjz
+                        wbkys2">
+                    <!-- 时支 -->
+                    <div class="zy2hdbz2 wbjz dljz">时</div>
+                    <div style="justify-content: space-evenly;display:
+                            flex;flex-direction: column;padding: 0px .2em;">
+                        <div @click="H_ZHI_SEL(item.name)" v-for="item in
+                                H_ZHI" :class="item.style">{{item.name}}
+                        </div>
+                    </div>
+                </div>
+                <div style="width:20%;font-size: 130%;" class="wbk wbjz
+                        wbkys2">
+                    <!-- 月将 -->
+                    <div class="zy2hdbz2 wbjz dljz">月将</div>
+                    <div style="justify-content: space-evenly;display:
+                            flex;flex-direction: column;padding: 0px .2em;">
+                        <div @click="YUEJIANG_SEL(item.name)" v-for="item in
+                                YUEJIANG" :class="item.style">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="qkan wbjz" @click="szsel_ok">选择完毕</div>
+        </div>
+
+        <div class="jwdmb" id="jwdmb_id">
+            <div class="hz hzlb" style="padding: .5em 0.2em;">
+                <div style="font-size:90%;color:#ffffff">经度选择</div>
+                <div @click="jwd_sq()" style="height:1em;width: 1em;">
+                    <svg t="1670161801806" class="icon" divBox="0 0 1024
+                            1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3046" width="100%"
+                        height="100%">
+                        <path d="M587.229378 437.990403 580.722174 437.990403
+                                76.975139 437.990403 76.975139 581.918419
+                                580.722174 581.918419 587.229378 581.918419
+                                940.542216 581.918419 940.542216 437.990403Z" p-id="3047" fill="#ffffff"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="a2">
+                <div v-for="item in jwdlist">
+                    <div class="a3" v-for="(items,index) in item.value">
+                        <div @click="item.xz=!item.xz" class="hz hzlb a4">
+                            <div>
+                                {{index}}
+                            </div>
+                            <div>
+                                {{item.xz?"收起":"展开"}}
+                            </div>
+                        </div>
+                        <div v-if="item.xz" style="margin: 0px .2em;">
+                            <div @click.stop="jdxq(itemss.dj)" v-for="(itemss,index0) in items" class="jwdlist_a">
+                                <div>
+                                    {{index0}} 北纬:{{itemss.bw}}度
+                                    东经:{{itemss.dj}}度
+                                </div>
+                                <div class="jwdxz">
+                                    选择
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div @click="jwd_sq()" class="qkan" style="text-align: center;">
+                选择完毕
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+<script src="../../JS/vue.min.js"></script>
+<script src="../../JS/tys_20230527.js"></script>
+<script src="../../JS/time_sel.js" defer></script>
+<script src="../../JS/nongli.js" defer></script>
+<script src="./index.js"></script>
+
+</html>

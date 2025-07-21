@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="divport" content="width=device-width, initial-scale=1.0">
+    <title>课例</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../../root.css">
+</head>
+<body>
+    <div style="opacity:1;transition: opacity .5s ease 0s;width: 100vw;height: 100vh;" id="jzdh">
+        <iframe style="width: 100vw;height: 100vh;" seamless="seamless" scrolling="yes" frameborder="0"
+            class="zb_a llkys" src="../../components/jiazai/index.html" frameborder="0"></iframe>
+    </div>
+    <div id="LLKID" class="llk_b">
+        <div class="hz hzlb llk_db">
+            <div onclick="llkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+            <div class="hdbtl">六壬起个课</div>
+            <div onclick="llkgb()" class="llk_a">
+                <svg width="100%" height="100%">
+                    <use xlink:href="../../components/cha.svg#cxx"></use>
+                </svg>
+            </div>
+        </div>
+        <iframe id="LLKsrc" style="width: 100vw;height: calc(100vh - 2em);" frameborder="0"></iframe>
+    </div>
+    <div id="vue" class="AA">
+        <div class="hz ssk_a weisousuo">
+            <div class="hz ssk_b">
+                <div style="width: 2em;height: 1em;">
+                    <svg t="1669792935096" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2688" width="100%" height="100%">
+                        <path
+                            d="M809.246403 771.926938 777.737782 803.458071 924.965961 950.667831 956.476629 919.157163Z"
+                            p-id="2689" fill="#cdcdcd"></path>
+                        <path
+                            d="M454.878536 70.285786C239.51556 70.285786 64.93236 244.847497 64.93236 460.231963c0 215.341486 174.583201 389.945153 389.945153 389.945153 215.362976 0 389.9472-174.603667 389.9472-389.945153C844.825736 244.847497 670.241512 70.285786 454.878536 70.285786zM454.878536 805.611108c-190.750415 0-345.381192-154.626683-345.381192-345.379145 0-190.751439 154.629753-345.380168 345.381192-345.380168 190.752462 0 345.382215 154.62873 345.382215 345.380168C800.259728 650.983401 645.630998 805.611108 454.878536 805.611108z"
+                            p-id="2690" fill="#cdcdcd"></path>
+                    </svg>
+                </div>
+                <input type="search" id="SSK_ID" class="ssk_d" type="text" v-model="sszhi" />
+            </div>
+            <div @click="sousuo()" class="sstz">
+                搜索
+            </div>
+        </div>
+        <div>
+            <div @click="keliqiju(item)" class="kelilist_a" v-for="item in fylist">
+                <div class="hz">
+                    <div style="color:var(--zhuti_clor)">时间:</div>
+                    <div class="hxhd klzt">
+                        {{item.zs_y}}年 {{item.zs_m}}月 {{item.zs_d}}日 {{item.zs_h}}时 {{zhs}} {{grxzfs}}
+                    </div>
+                </div>
+                <div class="hz wzbhh">
+                    <div style="color:var(--zhuti_clor)">问事:</div>
+                    <div v-if="typeof(item.cd_ws) == 'object'" class="hxhd klzt hz">
+                        <div>{{item.cd_ws[0]}}</div>
+                        <div class="sswzyx">{{item.cd_ws[1]}}</div>
+                        <div>{{item.cd_ws[2]}}</div>
+                    </div>
+                    <div v-else class="hxhd klzt wsdyfk_gdt">
+                        {{item.cd_ws}}
+                    </div>
+                </div>
+                <div class="hz wzbhh">
+                    <div style="color:var(--zhuti_clor)">断语:</div>
+                    <div v-if="typeof(item.cd_dy) == 'object'" class="hxhd klzt hz">
+                        <div>{{item.cd_dy[0]}}</div>
+                        <div class="sswzyx">{{item.cd_dy[1]}}</div>
+                        <div>{{item.cd_dy[2]}}</div>
+                    </div>
+                    <div v-else class="hxhd klzt wsdyfk_gdt">
+                        {{item.cd_dy}}
+                    </div>
+                </div>
+                <div class="hz wzbhh">
+                    <div style="color:var(--zhuti_clor)">反馈:</div>
+                    <div v-if="typeof(item.cd_fk) == 'object'" class="hxhd klzt hz">
+                        <div>{{item.cd_fk[0]}}</div>
+                        <div class="sswzyx">{{item.cd_fk[1]}}</div>
+                        <div>{{item.cd_fk[2]}}</div>
+                    </div>
+                    <div v-else class="hxhd klzt wsdyfk_gdt">
+                        {{item.cd_fk}}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin: 2vh 0px 5vh 0px; color: #db8b13;" v-if="xyyjzzt==3">
+                全部加载完成
+            </div>
+        </div>
+        <div v-if="xyyjzzt!=3" class="hz xyyys hzjc" @click="jiazaiys(pages_index++)">
+            <div class="hz" style="justify-content: space-evenly;width: 30vw;align-items: center;">
+                <div>
+                    加载下一页
+                </div>
+                <div style="width: 1em;height: 1em;" v-if="xyyjzzt==0">
+                    <svg t="1669814866578" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2688" width="100%" height="100%">
+                        <path
+                            d="M512.077 766.295c3.455 0.192 6.816-0.288 9.888-1.536 2.112-0.672 4.032-1.824 5.663-3.456l459.533-459.533c2.304-2.304 3.648-5.182 4.223-8.449 2.016-8.543-0.96-18.719-8.543-26.399-7.583-7.583-17.856-10.56-26.399-8.543-3.263 0.576-6.143 1.92-8.449 4.223l-436.014 435.823-435.919-435.919c-2.304-2.304-5.182-3.648-8.449-4.223-8.543-2.016-18.719 0.96-26.399 8.543-7.583 7.583-10.56 17.856-8.543 26.399 0.576 3.263 1.92 6.143 4.223 8.449l459.438 459.438c1.536 1.536 3.263 2.592 5.28 3.359 3.072 1.44 6.72 2.016 10.463 1.824z"
+                            fill="#ffffff" p-id="2689"></path>
+                    </svg>
+                </div>
+                <div style="width: 3em;height: 3em;" v-if="xyyjzzt==1">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%"
+                        viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <rect x="0" y="0" width="4" height="10" fill="#ffffff" transform="translate(0 15.1665)">
+                            <animateTransform attributeType="xml" attributeName="transform" type="translate"
+                                values="0 0; 0 20; 0 0" begin="0" dur="0.3s" repeatCount="indefinite">
+                            </animateTransform>
+                        </rect>
+                        <rect x="10" y="0" width="4" height="10" fill="#ffffff" transform="translate(0 11.5002)">
+                            <animateTransform attributeType="xml" attributeName="transform" type="translate"
+                                values="0 0; 0 20; 0 0" begin="0.2s" dur="0.3s" repeatCount="indefinite">
+                            </animateTransform>
+                        </rect>
+                        <rect x="20" y="0" width="4" height="10" fill="#ffffff" transform="translate(0 1.83315)">
+                            <animateTransform attributeType="xml" attributeName="transform" type="translate"
+                                values="0 0; 0 20; 0 0" begin="0.4s" dur="0.3s" repeatCount="indefinite">
+                            </animateTransform>
+                        </rect>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../JS/vue.min.js"></script>
+<script src="./index.js"></script>
+</html>

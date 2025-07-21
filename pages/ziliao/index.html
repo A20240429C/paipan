@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精选资料</title>
+</head>
+<link rel="stylesheet" href="../../root.css">
+<link rel="stylesheet" href="./index.css">
+
+
+<body>
+    <div style="opacity:1;transition: opacity .5s ease 0s;width: 100vw;height: 100vh;" id="jzdh">
+        <iframe style="width: 100vw;height: 100vh;" seamless="seamless" scrolling="yes" frameborder="0"
+            class="zb_a llkys" src="../../components/jiazai/index.html" frameborder="0"></iframe>
+    </div>
+    <div id="vue" class="AA">
+        <div class="llk_b" :style="'top:'+LLKID">
+            <div class="hz hzlb llk_db">
+                <div class="ztkzys">
+                    <div class="jjkzys" onclick="llktzkz('-')">
+                        <svg t="1670161801806" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="3046" width="100%" height="100%">
+                            <path
+                                d="M587.229378 437.990403 580.722174 437.990403 76.975139 437.990403 76.975139 581.918419 580.722174 581.918419 587.229378 581.918419 940.542216 581.918419 940.542216 437.990403Z"
+                                p-id="3047" fill="#ffffff"></path>
+                        </svg>
+                    </div>
+                    <div style="font-size:80%;color:rgb(23, 82, 153) ">
+                        {{llk_ztdx}}
+                    </div>
+                    <div class="jjkzys" onclick="llktzkz('+')">
+                        <svg t="1670161775184" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="2077" width="100%" height="100%">
+                            <path
+                                d="M426.666667 426.666667H85.546667A85.418667 85.418667 0 0 0 0 512c0 47.445333 38.314667 85.333333 85.546667 85.333333H426.666667v341.12c0 47.274667 38.186667 85.546667 85.333333 85.546667 47.445333 0 85.333333-38.314667 85.333333-85.546667V597.333333h341.12A85.418667 85.418667 0 0 0 1024 512c0-47.445333-38.314667-85.333333-85.546667-85.333333H597.333333V85.546667A85.418667 85.418667 0 0 0 512 0c-47.445333 0-85.333333 38.314667-85.333333 85.546667V426.666667z"
+                                p-id="2078" fill="#ffffff"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <div  @click="zhiding=!zhiding">
+                            {{zhiding?'取消置顶':"置顶"}}
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="A1">{{llk_tltie}}</div>
+                <div @click="llkgb()" class="llk_a">
+                    <svg width="100%" height="100%">
+                        <use xlink:href="../../components/cha.svg#cxx"></use>
+                    </svg>
+                </div>
+            </div>
+            <iframe id="LLKsrc" :src="LLKsrc" style="width: 100vw;height: calc(100vh - 2em);" frameborder="0"></iframe>
+        </div>
+
+
+        <div class="hz ssk_a weisousuo">
+            <div class="hz ssk_b hzlb">
+                <div style="width: 2em;height: 1em;">
+                    <svg t="1669792935096" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2688" width="100%" height="100%">
+                        <path
+                            d="M809.246403 771.926938 777.737782 803.458071 924.965961 950.667831 956.476629 919.157163Z"
+                            p-id="2689" fill="#cdcdcd"></path>
+                        <path
+                            d="M454.878536 70.285786C239.51556 70.285786 64.93236 244.847497 64.93236 460.231963c0 215.341486 174.583201 389.945153 389.945153 389.945153 215.362976 0 389.9472-174.603667 389.9472-389.945153C844.825736 244.847497 670.241512 70.285786 454.878536 70.285786zM454.878536 805.611108c-190.750415 0-345.381192-154.626683-345.381192-345.379145 0-190.751439 154.629753-345.380168 345.381192-345.380168 190.752462 0 345.382215 154.62873 345.382215 345.380168C800.259728 650.983401 645.630998 805.611108 454.878536 805.611108z"
+                            p-id="2690" fill="#cdcdcd"></path>
+                    </svg>
+                </div>
+                <input type="search" @search="sousuo()" id="SSK_ID" class="ssk_d" type='text' v-model="sszhi" />
+            </div>
+
+            <div @click="sousuo()" class="sstz">
+                搜索
+            </div>
+        </div>
+        <div v-if="typeindex==0" class="list_a" @click="chakanwenzhang(item._id,item.title)" v-for="item in list">
+            <div class="ima_a">
+                <div class="ima_a" v-html="fm_svg(item.title)">
+                </div>
+            </div>
+            <div style="width: 100%;">
+                <div class="list_e">
+                    <div class="ydl_a">
+                        <div class="ydl_b">
+                            {{item.title}}
+                        </div>
+                        <div class="A3" v-if="if_zhiding(item._id)=='取消置顶'"  @click.stop="qxzd(item._id)">
+                            {{if_zhiding(item._id)}}
+                        </div>
+                    </div>
+                    <div v-if="item.jianjie?.length>70||item.lb?.length>4" @click.stop="item.jjzk=!item.jjzk" class="A2">{{item.jjzk?'收起':'展开'}}</div>
+                </div>
+                <div v-if="item.lb" :class="item.jjzk?'list_b2':'list_b'">
+                    <div v-for="items in item.lb">
+                        <div @click.stop="chakanwenzhang(items.id,items.name)" class="list_c">
+                            {{items.name}}
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!item.lb"  :class="item.jjzk?'wrap2':'wrap'">
+                    {{item.jianjie}}
+                </div>
+            </div>
+        </div>
+        <div v-if="typeindex==1">
+            <div :class="sslist?.length?'ssyjg':'sswjg'">
+                搜索到{{sslist?.length?sslist?.length:0}}本书籍
+            </div>
+            <div class="list_a" v-for="item in sslist">
+
+                <div class="ima_a">
+                    <div class="ima_a" v-html="fm_svg(item.title)">
+                    </div>
+                </div>
+                <div style="width: 100%;">
+                    <div class="list_e">
+                        <div class="ydl_a">
+                            <div class="ydl_b">
+                                {{item.title}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jgwz">
+                        有{{item.ssfh.length}}个结果
+                    </div>
+                    <div :class="item.jjzk?'list_b2':'list_b'">
+                        <div @click.stop="cksswz(items[1],index,item._id,item.title)" v-for="(items,index) in item.ssfh"
+                            class="list_d">
+                            <text>{{index+1}}.</text>
+                            <text>
+                                {{items[0]}}
+                            </text>
+                            <text style="color:red;">
+                                {{items[1]}}
+                            </text>
+                            <text>
+                                {{items[2]}}
+                            </text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script
+    src="../../JS/vue.global.min.js"></script>
+<script src="./index.js"></script>
+
+</html>

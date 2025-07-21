@@ -1,0 +1,51 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<title>远方的云</title>
+	<link rel="stylesheet" href="./index.css">
+	<link rel="stylesheet" href="../../root.css">
+</head>
+
+<body style="background: linear-gradient(to bottom, #1f4978, #306393);">
+	<p></p>
+</body>
+
+
+<script type="text/javascript"
+	src="../../JS/ThreeWebGL.js"></script>
+<script type="text/javascript"
+	src="../../JS/ThreeExtras.js"></script>
+<script type="text/javascript"
+	src="../../JS/Detector.js"></script>
+<script id="vs" type="x-shader/x-vertex">
+	varying vec2 vUv;
+	void main() {
+		vUv = uv;
+		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+	}
+</script>
+<script id="fs" type="x-shader/x-fragment">
+	uniform sampler2D map;
+	uniform vec3 fogColor;
+	uniform float fogNear;
+	uniform float fogFar;
+	varying vec2 vUv;
+	void main() {
+		float depth = gl_FragCoord.z / gl_FragCoord.w;
+		float fogFactor = smoothstep(fogNear, fogFar, depth);
+		gl_FragColor = texture2D(map, vUv);
+		gl_FragColor.w *= pow(gl_FragCoord.z, 20.0);
+		gl_FragColor = mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), fogFactor);
+	}
+</script>
+<script src="../../JS/yun_index.js"></script>
+
+</html>

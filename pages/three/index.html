@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js STL Model Viewer</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="../../root.css">
+</head>
+
+<body>
+    <script src="./three.min.js"></script>
+    <script src="./STLLoader.js"></script>
+    <script src="./OrbitControls.js"></script>
+    <script>
+        //北斗星原位置指向戌河魁 也就是y的0度是戌河魁 30度是亥登明
+        // 设置场景
+        const scene = new THREE.Scene();
+
+        // 设置相机
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.x = 0;
+        camera.position.y = 10;
+        camera.position.z = -15;
+
+
+        // 设置渲染器
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor('#2d608f', 1.5); // 深蓝色背景,参数为背景颜色和透明度
+        document.body.appendChild(renderer.domElement);
+
+        // 加载STL模型
+        const loader = new THREE.STLLoader();
+
+        let beidou, xyyp
+        loader.load('lrtdp.stl', function (geometry) {
+
+
+            const material = new THREE.MeshStandardMaterial({
+                color: '#ffa937',
+                roughness: 2,//表面粗糙度 (0.0-1.0)
+                metalness: 0.9,//金属质感 (0.0-1.0)
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.rotation.x = THREE.MathUtils.degToRad(180);// 旋转180度
+            scene.add(mesh);
+
+        });
+        loader.load('lrxz.stl', function (geometry) {
+            const material = new THREE.MeshStandardMaterial({
+                color: '#ffa937',
+                roughness: 1.5,
+                metalness: 0.9,
+            });
+            xyyp = new THREE.Mesh(geometry, material);
+            xyyp.position.y = 0.05;
+            scene.add(xyyp);
+        });
+
+
+        loader.load('beidou.stl', function (geometry) {
+            const material = new THREE.MeshStandardMaterial({
+                color: '#ffa937',
+                roughness: 1,
+                metalness: 0.9,
+            });
+            beidou = new THREE.Mesh(geometry, material);
+            beidou.position.y = 2.05
+            scene.add(beidou);
+        });
+        function qike(yuejiang, shichen) {
+
+            beidou.rotation.y = animateRotation(beidou, { y: beidoubujin(yuejiang) }, 1000, 'counter-clockwise')
+                .then(() => {
+                    setTimeout(() => {
+                        let tdpxz_deg = tiandibujin(yuejiang, shichen)
+                        console.log("tdpxz_deg", tdpxz_deg)
+                        beidou.rotation.y = animateRotation(beidou, { y: beidou.rotation.y + tdpxz_deg }, 1000, 'counter-clockwise')
+                        xyyp.rotation.y = animateRotation(xyyp, { y: tdpxz_deg }, 1000, 'counter-clockwise')
+                            .then(() => {
+                                console.log("旋转完成!")
+                            });
+                    }, 500)
+
+                });
+        }
+        setTimeout(() => {
+            qike("未", "未")
+
+        }, 1000)
+        function tiandibujin(yuejian, shichen) {
+            let arr = [0, -0.53, -1.03, -1.57, -2.1, -2.6, -3.13, 2.6, 2.08, 1.55, 1.03, 0.53];
+            const branches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+            const stems = ['卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑', '寅'];
+            let tdxz_obj1 = {};
+            stems.forEach((stem, stemIndex) => {
+                tdxz_obj1[stem] = {};
+
+                branches.forEach((branch, branchIndex) => {
+                    // 计算对应的数组索引
+                    let arrIndex = (branchIndex - stemIndex + arr.length) % arr.length;
+                    tdxz_obj1[stem][branch] = arr[arrIndex];
+                });
+            });
+            return tdxz_obj1[yuejian][shichen]
+        }
+        function beidoubujin(dizhi) {
+            let yj = "戌酉申未午巳辰卯寅丑子亥".split("");
+            let yj_data = {}
+            for (let i in yj) {
+                yj_data[yj[i]] = i * 0.50;
+            }
+            return yj_data[dizhi]
+        }
+        function animateRotation(mesh, targetRotations, duration = 1000, direction = 'auto') {
+            return new Promise((resolve) => {
+                const startRotations = mesh.rotation.clone();
+
+                targetRotations = {
+                    x: targetRotations.x ?? startRotations.x,
+                    y: targetRotations.y ?? startRotations.y,
+                    z: targetRotations.z ?? startRotations.z
+                };
+
+                mesh.rotation.set(startRotations.x, startRotations.y, startRotations.z);
+
+                // 计算每个轴的旋转方向和距离
+                const rotations = {
+                    x: calculateRotation(startRotations.x, targetRotations.x, direction),
+                    y: calculateRotation(startRotations.y, targetRotations.y, direction),
+                    z: calculateRotation(startRotations.z, targetRotations.z, direction)
+                };
+
+                let startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    mesh.rotation.x = startRotations.x + rotations.x.distance * progress;
+                    mesh.rotation.y = startRotations.y + rotations.y.distance * progress;
+                    mesh.rotation.z = startRotations.z + rotations.z.distance * progress;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        mesh.rotation.set(targetRotations.x, targetRotations.y, targetRotations.z);
+                        resolve();
+                    }
+                }
+
+                requestAnimationFrame(step);
+            });
+        }
+
+        function calculateRotation(start, end, direction) {
+            let distance = end - start;
+
+            // 自动选择最短路径
+            if (direction === 'auto') {
+                const altDistance = distance > 0 ? distance - Math.PI * 2 : distance + Math.PI * 2;
+                if (Math.abs(altDistance) < Math.abs(distance)) {
+                    distance = altDistance;
+                }
+            }
+            // 强制顺时针
+            else if (direction === 'clockwise') {
+                if (distance < 0) distance += Math.PI * 2;
+            }
+            // 强制逆时针
+            else if (direction === 'counter-clockwise') {
+                if (distance > 0) distance -= Math.PI * 2;
+            }
+
+            return { distance };
+        }
+
+
+
+
+
+        // 添加灯光 平行光- DirectionalLight 、点光源 PointLight  环境光 AmbientLight 聚光源 SpotLight 。
+        scene.add(new THREE.AmbientLight('#ffffff', 0.3));//参数为灯光颜色和强度
+
+
+        const dingbu_deng = new THREE.SpotLight('#ffffff', 1);// 顶部灯
+        dingbu_deng.position.z = 0
+        dingbu_deng.position.x = 0
+        dingbu_deng.position.y = 60
+        scene.add(dingbu_deng);
+
+
+
+
+
+        const dibu = new THREE.DirectionalLight('#ffffff', 0.5);// 底部 灯光
+        dibu.position.y = -100
+        scene.add(dibu);
+
+
+
+
+
+
+
+
+
+
+
+        // 添加轨道控制器
+        // const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        // controls.enableDamping = true;
+        // controls.dampingFactor = 0.05;
+
+
+
+
+
+
+
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        // 基本配置
+        controls.enableDamping = true;// 启用阻尼效果
+        controls.dampingFactor = 0.25; // 阻尼惯性
+        controls.screenSpacePanning = false; // 是否允许在3D空间中滚动
+
+        // 旋转配置
+        controls.maxPolarAngle = Math.PI * 0.9;  // 限制不能看到正下方
+        controls.minDistance = 10; // 限制相机距离
+        controls.maxDistance = 50;// 限制相机距离
+
+        // 键盘控制
+        controls.listenToKeyEvents(window);
+        controls.keys = {
+            LEFT: 'KeyA',        // 使用A键左移
+            UP: 'KeyW',          // 使用W键前进
+            RIGHT: 'KeyD',       // 使用D键右移
+            BOTTOM: 'KeyS'       // 使用S键后退
+        };
+
+        // 在动画循环中更新
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update(); // 必须调用以应用阻尼效果
+            renderer.render(scene, camera);
+        }
+        animate();
+
+
+
+        // 动画循环
+        function animate() {
+            requestAnimationFrame(animate);
+            // 更新灯光位置（使用时间作为参数）
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // 响应窗口大小变化
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>

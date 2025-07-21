@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>阅读</title>
+        <link rel="stylesheet" href="../../root.css">
+    </head>
+    <style>
+    body {
+        margin: 2vw;
+        padding: 0px;
+        background: rgb(240, 248, 255);
+        padding: .3em;
+        width: 94vw
+    }
+
+    a:link {
+        color: #1962c8
+    }
+
+    a:hover,
+    a:visited,
+    a:active,
+    a:focus {
+        color: #e90000
+    }
+
+    .a1 {
+        position: fixed;
+        right: 15vw;
+        bottom: 6vh;
+    }
+    .a2{
+        color: #f0f8fff0;
+        width: 3em;
+        height: 3em;
+        background: var(--zhuti_clor);
+        line-height: 3em;
+        border-radius: 50%;
+        text-align: center;
+        opacity: .9;
+        margin: 8px 0px;
+    }
+</style>
+    <body class="pinyin" id="vue" v-html="wznr">
+        <div class="a1">
+            <div class="a2" v-if="dy_api_btn" @click="ydfykz=!ydfykz">
+                {{ydfykz?'停止':"开始"}}
+            </div>            
+        </div>
+
+        <p v-html="wznr">
+        </p>
+    </body>
+    <script src="../../JS/pinyin.js" defer></script>
+    <script src="../../JS/vue.global.min.js"></script>
+
+    <script>
+
+    var pinyin;
+  let dsq1 = setInterval(() => {
+      if (typeof pinyinPro == "object") {
+          pinyin = pinyinPro.pinyin;
+          clearInterval(dsq1)
+      }
+  }, 100);
+  var urlcslj;
+  window.onscroll = function(e) {
+      let y = getScrollOffset().y;
+      window.top.callDB.set(urlcslj + "_dgwz", y)
+  };
+
+  function getScrollOffset() {
+      if (window.pageXOffset) {
+          return {
+              x: window.pageXOffset,
+              y: window.pageYOffset
+          }
+      } else {
+          return {
+              x: document.body.scrollLeft + document.documentElement.scrollLeft,
+              y: document.body.scrollTop + document.documentElement.scrollTop
+          }
+      }
+  }
+  let url_obj = {};
+  const HelloVueApp = {
+      data() {
+          return {  
+              ydfykz: false,
+              dy_api_btn: false,
+              wznr: `<div style="width:100vw;height:100vw;margin-top:10vh"><svg width="100%"height="30%"viewBox="0 0 135 140"xmlns="http://www.w3.org/2000/svg"fill="#168aef"><rect y="10"width="15"height="120"rx="6"><animate attributeName="height"begin="0.5s"dur="1s"values="120;110;100;90;80;70;60;50;40;140;120"calcMode="linear"repeatCount="indefinite"/><animate attributeName="y"begin="0.5s"dur="1s"values="10;15;20;25;30;35;40;45;50;0;10"calcMode="linear"repeatCount="indefinite"/></rect><rect x="30"y="10"width="15"height="120"rx="6"><animate attributeName="height"begin="0.25s"dur="1s"values="120;110;100;90;80;70;60;50;40;140;120"calcMode="linear"repeatCount="indefinite"/><animate attributeName="y"begin="0.25s"dur="1s"values="10;15;20;25;30;35;40;45;50;0;10"calcMode="linear"repeatCount="indefinite"/></rect><rect x="60"width="15"height="140"rx="6"><animate attributeName="height"begin="0s"dur="1s"values="120;110;100;90;80;70;60;50;40;140;120"calcMode="linear"repeatCount="indefinite"/><animate attributeName="y"begin="0s"dur="1s"values="10;15;20;25;30;35;40;45;50;0;10"calcMode="linear"repeatCount="indefinite"/></rect><rect x="90"y="10"width="15"height="120"rx="6"><animate attributeName="height"begin="0.25s"dur="1s"values="120;110;100;90;80;70;60;50;40;140;120"calcMode="linear"repeatCount="indefinite"/><animate attributeName="y"begin="0.25s"dur="1s"values="10;15;20;25;30;35;40;45;50;0;10"calcMode="linear"repeatCount="indefinite"/></rect><rect x="120"y="10"width="15"height="120"rx="6"><animate attributeName="height"begin="0.5s"dur="1s"values="120;110;100;90;80;70;60;50;40;140;120"calcMode="linear"repeatCount="indefinite"/><animate attributeName="y"begin="0.5s"dur="1s"values="10;15;20;25;30;35;40;45;50;0;10"calcMode="linear"repeatCount="indefinite"/></rect></svg></div>`
+          }
+      },
+      mounted() {
+          window.dy_api_btn_fc = this.dy_api_btn_fc, window.ydfykz_fc = this.ydfykz_fc
+      },
+      watch: {
+          ydfykz() {
+              if (!this.ydfykz) {
+                  speechSynthesis?.cancel()
+              } else {
+                  window.top.xxk.dibutishi("点击段落开始朗读文本", 5000)
+              }
+          },
+      },
+      beforeCreate: function() {},
+      created: function() {
+          let url_op = location.href.split('html?')[1].split('#')[0].split("&");
+          urlcslj = location.href.split('html?')[1].split('#')[0];
+          window.top.callDB.get(urlcslj).then(res => {
+              if (res) {
+                  let A = res;
+                  if (A?.length > 5) {
+                      this.wznr = A;
+                      if (url_op?.index) {
+                          setTimeout(function() {
+                              window.location.href = "#ssjgmd"
+                          }, A.length / 100)
+                      }
+                      window.top.callDB.get(urlcslj + "_dgwz").then(res => {
+                          if (res) {
+                              setTimeout(function() {
+                                  window.scrollTo(0, res)
+                              }, A.length / 100)
+                          }
+                      });
+                      window.top.xxk.dibutishi("已自动跳转上次阅读位置", 1500);
+                      llkwzsx();
+                      return
+                  }
+              } else {
+                 
+                  for (let i in url_op) {
+                      let a = url_op[i].split("=");
+                      url_obj[a[0]] = a[1]
+                  }
+                  if (url_obj.type == 'ydwz') {
+                      this.ydwz(url_obj.id)
+                  }
+                  if (url_obj.type == 'sswz') {
+                      this.sswz(url_obj.ssz, url_obj.index, url_obj.id)
+                  }
+
+                  
+              }
+          })
+
+      
+      },
+      methods: {
+          ydfykz_fc() {
+              return this.ydfykz
+          },
+          dy_api_btn_fc(e) {
+              this.dy_api_btn = e
+          },
+          ydwz(id) {
+              var thar = this;
+              window.top.callFunction({
+                  data: {
+                    type: "hqjxzlzw",
+                    id: id
+                },
+                  success(res) {
+                      let data = res.result.data[0].zhengwen;
+                      data = thar.code_pp(data);
+                      thar.wznr = data;
+                      window.top.callDB.set(urlcslj, data);
+                      llkwzsx()
+                  }
+              })
+          },
+          sswz(ssz, index, id) {
+              ssz = decodeURI(ssz);
+              var thar = this;
+              window.top.callFunction({
+                  data:{
+                    type: "hqjxzlzw",
+                    id: id
+                },
+                  success(res) {
+                      let data = res.result.data[0].zhengwen;
+                      data = thar.code_pp(data);
+                      data = thar.html_updata(data, ssz, index);
+                      thar.wznr = data;
+                      window.top.callDB.set(urlcslj, data);
+                      setTimeout(function() {
+                          window.location.href = "#ssjgmd"
+                      }, data.length / 100);
+                      llkwzsx()
+                  }
+              })
+          },
+          code_pp(html) {
+              return html.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/<p id="md/gi, '<p style="position: relative;top: -80px;" id="md').replace(/<a href="#">/gi, '<a style="position: relative;top: 80px;" href="#">').replace(/<iframe src=/gi, '<iframe style="width:95vw;height:95vw" src=').replace(/<p /gi, '<p onclick="ldwb_fc(this)" ').replace(/<p>/gi, '<p onclick="ldwb_fc(this)">').replace(/<img /gi, '<img style="width: 80vw;"')
+          },
+          html_updata(htmls, ssz, index) {
+              let styleA = ' id="ssjgmd" ';
+              let styleB0 = '<span style="color: red;padding: 0 1px;background: #ff9200;" ><strong>';
+              let styleB1 = '</strong></span>';
+              let weizhi = this.sousuo(htmls, ssz);
+              let b = htmls.lastIndexOf('>', weizhi[index]);
+              let c = this.insertStr(htmls, b, styleA);
+              weizhi = this.sousuo(c, ssz)[index];
+              c = this.insertStr(c, weizhi + ssz.length, styleB1);
+              c = this.insertStr(c, weizhi, styleB0);
+              return c
+          },
+          html_in_id(e) {
+              let sywz = this.sousuo(e, "<p");
+              let jici = 0;
+              let htmlz = e;
+              for (let i = sywz.length - 1; i > 0; i--) {
+                  jici++;
+                  htmlz = this.insertStr(htmlz, sywz[i] + 2, " id='TTS_" + jici + "'")
+              }
+              return htmlz
+          },
+          sousuo(txt, ssz) {
+              let JG = [];
+              let jici = txt.indexOf(ssz);
+              JG.push(jici);
+              if (jici != -1) {
+                  while (1) {
+                      jici = txt.indexOf(ssz, jici + ssz.length);
+                      if (jici != -1) {
+                          JG.push(jici)
+                      } else {
+                          break
+                      }
+                  }
+              }
+              return JG
+          },
+          insertStr(source, start, newStr) {
+              return source.slice(0, start) + newStr + source.slice(start)
+          },
+      }
+  };
+  Vue.createApp(HelloVueApp).mount('#vue');
+  let ldwb = "";
+  if (typeof window.speechSynthesis != "undefined") {
+      var speechSynthesis = window.speechSynthesis
+  }
+  if (typeof SpeechSynthesisUtterance != "undefined") {
+      var utterance = new SpeechSynthesisUtterance();
+      utterance.lang = 'zh-CN';
+      utterance.pitch = 1.5;
+      utterance.rate = 1.5;
+      utterance.volume = 1
+  }
+  if (typeof window.speechSynthesis != "undefined" && typeof SpeechSynthesisUtterance != "undefined") {
+      window.dy_api_btn_fc(true)
+  }
+
+  function isChineseChar(char) {
+      var regex = /[\u4E00-\u9FA5]/;
+      return regex.test(char)
+  }
+
+  function ldwb_fc(e) {
+      if (e.innerHTML.indexOf("<ruby>") == -1) {
+          let html = e.innerHTML.split("");
+          let html_text = "";
+          for (let i in html) {
+              if (isChineseChar(html[i])) {
+                  let text = html[i];
+                  let pinyinArr = pinyin(text, {
+                      type: 'array'
+                  });
+                  html_text = html_text + `<ruby>${text}<rt>${pinyinArr[0]}</rt></ruby>`
+              } else {
+                  html_text = html_text + html[i]
+              }
+          }
+          e.innerHTML = html_text
+      } else {
+          e.innerHTML = filterText(e.innerText);
+          e.innerHTML = filterPinyin(e.innerHTML)
+      }
+      if (!window.ydfykz_fc()) {
+          console.log("未点击开始按钮");
+          return
+      }
+      if (typeof window.speechSynthesis == "undefined" || typeof SpeechSynthesisUtterance == "undefined") {
+          return
+      }
+      if (ldwb == e.innerText) {
+          console.log("暂停朗读");
+          speechSynthesis.cancel();
+          ldwb = "";
+          return
+      }
+      ldwb = e.innerText;
+      console.log(ldwb);
+      ldwb = filterText(ldwb);
+      ldwb = filterPinyin(ldwb);
+      console.log("开始朗读", ldwb);
+      utterance.text = ldwb;
+      speechSynthesis.speak(utterance)
+  }
+    
+    
+    function filterText(input){var filtered=input.replace(/[a-zA-Z\u0250-\u02af\u02b0-\u02ff\u0370-\u0377\u037a-\u037e\u0384-\u038a\u038c\u038e-\u03a1\u03a3-\u052f\u1d00-\u1d25\u1d2c-\u1d5c\u1d62-\u1d65\u1d6b-\u1d77\u1d79-\u1dbe\u1e00-\u1eff\u2071\u207f\u2090-\u209c\u212a\u212b\u2132\u214e\u2160-\u2188\u2c60-\u2c7f\ua722-\ua787\ua78b-\ua7ad\ua7b0-\ua7b7\ua7f8-\ua7ff\ufb00-\ufb06\ufb13-\ufb17]/g,'');return filtered}function filterPinyin(text){return text.replace(/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/g,"")}function llkwzsx(){let b=localStorage.getItem('LLKsrc_fontsize');if(!b){b=100}document.getElementById('vue').style['font-size']=b+"%"}
+</script>
+</html>

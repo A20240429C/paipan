@@ -1,0 +1,9 @@
+:root {
+    --zhuti_clor: #0b6bc0;
+    --back_clor: #f0f8ff94;
+    --fonts_list_name: '';
+}
+
+* {
+    font-family: var(--fonts_list_name), serif;
+}
