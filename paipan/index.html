@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="2; url=https://6ren.cn/">
+    <title>我们搬家啦！正在跳转....</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            text-align: center;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h1 {
+            color: #4a6baf;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+        
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .emoji {
+            font-size: 3em;
+            margin: 20px 0;
+            display: block;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #4a6baf, #6a8fd8);
+            border-radius: 4px;
+            animation: progress 5s linear forwards;
+        }
+        
+        .link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #4a6baf;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 107, 175, 0.3);
+        }
+        
+        .link:hover {
+            background-color: #3a5a9f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 107, 175, 0.4);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes progress {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .moving-truck {
+            width: 120px;
+            height: 60px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .truck-body {
+            width: 100px;
+            height: 40px;
+            background-color: #4a6baf;
+            border-radius: 5px;
+            position: absolute;
+            top: 10px;
+            left: 0;
+        }
+        
+        .truck-cab {
+            width: 40px;
+            height: 30px;
+            background-color: #3a5a9f;
+            border-radius: 5px 0 0 5px;
+            position: absolute;
+            top: 20px;
+            left: -30px;
+        }
+        
+        .wheel {
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+        }
+        
+        .wheel-1 {
+            left: 10px;
+        }
+        
+        .wheel-2 {
+            right: 10px;
+        }
+        
+        .box {
+            width: 30px;
+            height: 30px;
+            background-color: #f8d56b;
+            position: absolute;
+            top: 0;
+            right: -40px;
+            animation: bounce 0.8s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="moving-truck">
+            <div class="truck-cab"></div>
+            <div class="truck-body"></div>
+            <div class="wheel wheel-1"></div>
+            <div class="wheel wheel-2"></div>
+            <div class="box"></div>
+        </div>
+        
+        <h1>我们搬家啦！</h1>
+        <span class="emoji">🚚</span>
+        <p>网站已经迁移到新地址，正在为您自动跳转...</p>
+        <p>新家更宽敞、更漂亮，功能也更强大哦！</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <p>如果5秒内没有自动跳转，请点击下方按钮：</p>
+        <a href="https://6ren.cn/paipan" class="link">立即前往新网站</a>
+    </div>
+    
+    <script>
+        // 倒计时显示
+        let timeLeft = 2;
+        const timerElement = document.createElement('p');
+        timerElement.style.marginTop = '15px';
+        timerElement.style.fontSize = '0.9em';
+        timerElement.style.color = '#666';
+        document.querySelector('.container').appendChild(timerElement);
+        
+        const timer = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = `自动跳转还剩 ${timeLeft} 秒...`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
